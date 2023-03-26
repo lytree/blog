@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>01. 考虑使用静态工厂方法替代构造方法 | 杨柳亭</title><meta name="author" content="lytree"><meta name="copyright" content="lytree"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="01. 考虑使用静态工厂方法替代构造方法1. 考虑使用静态工厂方法替代构造方法　　　　一个类允许客户端获取其实例的传统方式，是提供一个公共构造方法。 其实，还有另一种技术应该成为每个程序员工具箱的一部分。 一个类可以提供一个简单的、只返回该类实例的公共静态工厂方法。 下面是一个 Boolean 简单的例子（ 基本类型boolean的包装类）。 此方法将基本类型boolean转换为 Boolean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01. 考虑使用静态工厂方法替代构造方法">
+<meta property="og:url" content="https://prideyang.top/2022/10/29/Effective-Java/01.%20%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%9B%BF%E4%BB%A3%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="杨柳亭">
+<meta property="og:description" content="01. 考虑使用静态工厂方法替代构造方法1. 考虑使用静态工厂方法替代构造方法　　　　一个类允许客户端获取其实例的传统方式，是提供一个公共构造方法。 其实，还有另一种技术应该成为每个程序员工具箱的一部分。 一个类可以提供一个简单的、只返回该类实例的公共静态工厂方法。 下面是一个 Boolean 简单的例子（ 基本类型boolean的包装类）。 此方法将基本类型boolean转换为 Boolean">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://prideyang.top/img/avatar.jpg">
+<meta property="article:published_time" content="2022-10-29T14:37:39.000Z">
+<meta property="article:modified_time" content="2022-12-31T08:50:03.949Z">
+<meta property="article:author" content="lytree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://prideyang.top/img/avatar.jpg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="https://prideyang.top/2022/10/29/Effective-Java/01.%20%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%9B%BF%E4%BB%A3%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '01. 考虑使用静态工厂方法替代构造方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-31 16:50:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="杨柳亭"><span class="site-name">杨柳亭</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">01. 考虑使用静态工厂方法替代构造方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-29T14:37:39.000Z" title="发表于 2022-10-29 22:37:39">2022-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-31T08:50:03.949Z" title="更新于 2022-12-31 16:50:03">2022-12-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="01. 考虑使用静态工厂方法替代构造方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="01-考虑使用静态工厂方法替代构造方法"><a href="#01-考虑使用静态工厂方法替代构造方法" class="headerlink" title="01. 考虑使用静态工厂方法替代构造方法"></a>01. 考虑使用静态工厂方法替代构造方法</h1><h1 id="1-考虑使用静态工厂方法替代构造方法"><a href="#1-考虑使用静态工厂方法替代构造方法" class="headerlink" title="1. 考虑使用静态工厂方法替代构造方法"></a>1. 考虑使用静态工厂方法替代构造方法</h1><p>　　　　一个类允许客户端获取其实例的传统方式，是提供一个公共构造方法。 其实，还有另一种技术应该成为每个程序员工具箱的一部分。 一个类可以提供一个简单的、只返回该类实例的公共静态工厂方法。 下面是一个 <code>Boolean</code> 简单的例子（ 基本类型<code>boolean</code>的包装类）。 此方法将基本类型<code>boolean</code>转换为 <code>Boolean</code> 对象引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title function_">valueOf</span><span class="params">(<span class="type">boolean</span> b)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> b ? Boolean.TRUE : Boolean.FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　　　注意，静态工厂方法与设计模式中的工厂方法模式不同[Gamma95]。本条目中描述的静态工厂方法在设计模式中没有直接的等价。</p>
+<p>　　　　类可以为其客户端提供静态工厂方法，而不是公共构造方法。提供静态工厂方法来代替提供公共构造方法这种方式，有优点也有缺点。</p>
+<p>　　　　<strong>静态工厂方法的一个优点是，与构造方法不同，它们是有名字的。</strong> 如果构造方法的参数本身并不描述被返回的对象，则具有精心选择名称的静态工厂更易于使用，并且生成的客户端代码更易于阅读。 例如，返回一个可能为素数的 <code>BigInteger</code> 的构造方法 <code>BigInteger(int，int，Random)</code> 可以更好地表示为名为 <code>BigInteger.probablePrime</code> 的静态工厂方法。 （这个方法是在 Java 1.4 中添加的。）</p>
+<p>　　　　一个类只能有一个给定签名的构造方法。 程序员知道通过提供两个仅仅在参数类型的顺序不同的构造方法，来解决这个限制。 这是一个非常糟糕的主意。 对于这样的 API ，用户将永远不会记得哪个构造方法是哪个，最终会错误地调用。 阅读使用这些构造方法的代码的人只有在参考类文档的情况下才知道代码的作用。</p>
+<p>　　　　因为静态工厂方法有名字，所以它们不会受到上述限制。在类中似乎需要具有相同签名的多个构造方法的情况下，用静态工厂方法替换构造方法，并仔细选择名称来突出它们的差异。</p>
+<p>　　　　<strong>静态工厂方法的第二个优点是，与构造方法不同，它们不需要每次调用时都创建一个新对象。</strong> 这允许不可变类 （详见第 17 条）使用预先构建的实例，或者在构造时缓存实例，并反复分配它们以避免创建不必要的重复对象。<code>Boolean.valueof(boolean)</code> 方法说明了这种方法：它从不创建对象。这种技术类似于 <code>Flyweight</code> 模式[Gamma95]。如果经常请求等价对象，那么它可以极大地提高性能，特别是在创建它们的代价非常昂贵的情况下。</p>
+<p>　　　　静态工厂方法在重复调用时，返回相同实例这个特点，可以让类在任何时候都能对实例保持严格的控制。这样做的类被称为实例控制类（ instance-controlled）。有很多理由足以让我们去我们编写实例控制类。实例控制可以保证一个类是单例 的（详见第 3 条） 或不可实例化的 （详见第 4 条）。同时,它允许一个不可变的值类 （详见第 17 条） 保证不存在两个相等但不相同的实例，也就是说当且仅当 <code>a == b</code> 时才有 <code>a.equals(b)</code>。这是<code>Flyweight</code>模式的基础[Gamma95]。<code>Enum</code> 类型 （详见第 34 条）可以做到这点。</p>
+<p>　　　　<strong>静态工厂方法的第三个优点是，与构造方法不同，它们可以返回其返回类型的任何子类型的对象。</strong> 这为你在选择返回对象的类型时，提供了很大的灵活性。</p>
+<p>　　　　这种灵活性的一个应用是， API 可以返回对象而不需要公开它的类。 以这种方式隐藏实现类，会使 API 非常紧凑。 这种技术适用于基于接口的框架（详见第 20 条），其中接口为静态工厂方法提供自然返回类型。</p>
+<p>　　　　在 Java 8 之前，接口不能有静态方法。根据约定，一个名为 <code>Types</code> 的接口的静态工厂方法被放入一个不可实例化的伙伴类（companion class）（详见第 4 条）<code>Types</code> 类中。例如，Java 集合框架有 45 个接口的实用工具实现，提供不可修改的集合、同步集合等等。几乎所有这些实现都是通过静态工厂方法在一个不可实例化的类 (<code>java.util.collections</code>) 中返回的。返回对象的类都是隐藏的。</p>
+<p>　　　　<code>Collections</code> 框架 API 的规模要比它之前返回的 45 个单独的公共类要小得多，每个类在集合框架中都有一个便利的实现。不仅精简了API，还减少了程序员为了使用 API而掌握的概念的数量和难度。程序员知道返回的对象恰好有其接口指定的 API，因此不需要为实现类读阅读额外的类文档。此外，使用这种静态工厂方法，需要客户端通过接口替代实现类，来引用返回的对象，这通常是良好的实践（详见第 64 条）。</p>
+<p>　　　　从 Java 8 开始，接口不能包含静态方法的限制被取消了，所以通常没有理由为接口提供一个不可实例化的伴随类。 很多公开的静态成员应该放在这个接口本身。 但是，请注意，将这些静态方法的大部分实现代码放在单独的包私有类中仍然是必要的。 这是因为 Java 8 要求所有接口的静态成员都是公共的。 Java 9 允许私有静态方法，但静态字段和静态成员类仍然需要公开。</p>
+<p>　　　　<strong>静态工厂的第四个优点是返回对象的类可以根据输入参数的不同而不同。</strong> 声明的返回类型的任何子类都是允许的。 返回对象的类也可以随每次发布而不同。</p>
+<p>　　　　<code>EnumSet</code> 类（详见第 36 条）没有公共构造方法，只有静态工厂。 在 OpenJDK 实现中，它们根据底层枚举类型的大小返回两个子类中的一个的实例：大多数枚举类型具有 64 个或更少的元素，静态工厂将返回一个 <code>RegularEnumSet</code> 实例， 底层是<code>long</code> 类型；如果枚举类型具有六十五个或更多元素，则工厂将返回一个 <code>JumboEnumSet</code> 实例，底层是<code>long</code> 类型的数组。</p>
+<p>　　　　这两个实现类的存在对于客户端而言是不可见的。 如果 <code>RegularEnumSet</code> 对于小的枚举类型不再具有性能优势，则可以在未来版本中将其淘汰，且不会产生任何不良影响。 同样，如果可以证明添加 <code>EnumSet</code> 的更多的实现可以提高性能，那么在未来的版本可能就会这样做。 客户既不知道也不关心他们从工厂返回的对象的类别; 他们只需要知道它是 <code>EnumSet</code> 的子类。</p>
+<p>　　　　<strong>静态工厂的第五个优点是，在编写包含该方法的类时，返回的对象的类不需要存在。</strong> 这种灵活的静态工厂方法构成了服务提供者框架的基础，比如 Java 数据库连接 API（JDBC）。服务提供者框架是提供者实现服务的系统，并且系统使得实现对客户端可用，从而将客户端从实现中分离出来。</p>
+<p>　　　　服务提供者框架中有三个基本组：服务接口，它表示实现；提供者注册 API，提供者用来注册实现；以及服务访问 API，客户端使用该 API 获取服务的实例。服务访问 API 允许客户指定选择实现的标准。在缺少这样的标准的情况下，API 返回一个默认实现的实例，或者允许客户通过所有可用的实现进行遍历。服务访问 API 是灵活的静态工厂，它构成了服务提供者框架的基础。</p>
+<p>　　　　服务提供者框架的一个可选的第四个组件是一个服务提供者接口，它描述了一个生成服务接口实例的工厂对象。在没有服务提供者接口的情况下，必须对实现进行反射实例化（详见第 65 条）。在 JDBC 的情况下，<code>Connection</code> 扮演服务接口的一部分，<code>DriverManager.registerDriver</code> 提供程序注册 API、<code>DriverManager.getConnection</code> 是服务访问 API，<code>Driver</code> 是服务提供者接口。</p>
+<p>　　　　服务提供者框架模式有许多变种。 例如，服务访问 API 可以向客户端返回比提供者提供的更丰富的服务接口。 这是桥接模式[Gamma95]。 依赖注入框架（详见第 5 条）可以被看作是强大的服务提供者。 从 Java 6 开始，平台包含一个通用的服务提供者框架 <code>java.util.ServiceLoader</code>，所以你不需要，一般也不应该自己编写（详见第 59 条）。 JDBC 不使用 <code>ServiceLoader</code>，因为前者早于后者。</p>
+<p>　　　　<strong>只提供静态工厂方法的主要限制是，没有公共或受保护构造方法的类不能被子类化。</strong> 例如，要想将 <code>Collections</code> 框架中任何遍历的实现类进行子类化，是不可能的。但是这样也会因祸得福，因为它鼓励程序员使用组合（composition）而不是继承（详见第 18 条），并且是不可变类型锁需要的（详见第 17 条）。</p>
+<p>　　　　<strong>静态工厂方法的第二个缺点是，程序员很难找到它们。</strong> 它们不像构造方法那样在 API 文档中明确的标注出来。因此，对于提供了静态方法而不是构造器的类来说，想要查明如何实例化一个类是十分困难的。Javadoc 工具可能有一天会注意到静态工厂方法。与此同时，通过关注类或者接口的文档中静态方法，并且遵守标准的命名习惯，也可以弥补这一劣势。下面是一些静态工厂方法的常用名称。以下清单这是列出了其中的一小部分：</p>
+<ul>
+<li>from ——  类型转换方法，它接受单个参数并返回此类型的相应实例，例如：<strong>Date d &#x3D; Date.from(instant)</strong>;</li>
+<li>of —— 聚合方法，接受多个参数并返回该类型的实例，并把他们合并在一起，例如：<strong>Set&lt;<strong>​</strong>Rank&gt;<strong>​</strong>​ faceCards &#x3D; EnumSet.of(JACK, QUEEN, KING)</strong>;</li>
+<li>valueOf —— from 和 to 更为详细的替代 方式，例如：<strong>BigInteger prime &#x3D; BigInteger.valueOf(Integer.MAX_VALUE)</strong>;</li>
+<li>instance 或 getinstance —— 返回一个由其参数 (如果有的话) 描述的实例，但不能说它具有相同的值，例如：<strong>StackWalker luke &#x3D; StackWalker.getInstance(options)</strong>;</li>
+<li>create 或 newInstance —— 与 instance 或 getInstance 类似，除此之外该方法保证每次调用返回一个新的实例，例如：<strong>Object newArray &#x3D; Array.newInstance(classObject, arrayLen)</strong>;</li>
+<li>getType —— 与 getInstance 类似，但是在工厂方法处于不同的类中的时候使用。<strong>getType</strong> 中的 <strong>Type</strong> 是工厂方法返回的对象类型，例如：<strong>FileStore fs &#x3D; Files.getFileStore(path)</strong>;</li>
+<li>newType —— 与 newInstance 类似，但是在工厂方法处于不同的类中的时候使用。<strong>newType</strong>中的 <strong>Type</strong> 是工厂方法返回的对象类型，例如：<strong>BufferedReader br &#x3D; Files.newBufferedReader(path)</strong>;</li>
+<li>type —— getType 和 newType 简洁的替代方式，例如：<strong>List&lt;<strong>​</strong>Complaint&gt;<strong>​</strong>​ litany &#x3D; Collections.list(legacyLitany)</strong>;</li>
+</ul>
+<p>　　　　总之，静态工厂方法和公共构造方法都有它们的用途，并且了解它们的相对优点是值得的。通常，静态工厂更可取，因此避免在没有考虑静态工厂的情况下，直接选择使用或提供公共构造方法。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://prideyang.top">lytree</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://prideyang.top/2022/10/29/Effective-Java/01.%20%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%9B%BF%E4%BB%A3%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">https://prideyang.top/2022/10/29/Effective-Java/01.%20%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%9B%BF%E4%BB%A3%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://prideyang.top" target="_blank">杨柳亭</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/29/Effective-Java/32.%20%E5%90%88%E7%90%86%E5%9C%B0%E7%BB%93%E5%90%88%E6%B3%9B%E5%9E%8B%E5%92%8C%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/" title="32. 合理地结合泛型和可变参数"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">32. 合理地结合泛型和可变参数</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/29/Effective-Java/11.%20%E9%87%8D%E5%86%99equals%E6%96%B9%E6%B3%95%E6%97%B6%E5%90%8C%E6%97%B6%E4%B9%9F%E8%A6%81%E9%87%8D%E5%86%99hashcode%E6%96%B9%E6%B3%95/" title="11. 重写equals方法时同时也要重写hashcode方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">11. 重写equals方法时同时也要重写hashcode方法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">lytree</div><div class="author-info__description">杨柳亭</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#01-%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%9B%BF%E4%BB%A3%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">01. 考虑使用静态工厂方法替代构造方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%9B%BF%E4%BB%A3%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">1. 考虑使用静态工厂方法替代构造方法</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/66.%20%E6%98%8E%E6%99%BA%E5%AE%A1%E6%85%8E%E5%9C%B0%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95/" title="66. 明智审慎地本地方法">66. 明智审慎地本地方法</a><time datetime="2022-10-29T14:38:15.000Z" title="发表于 2022-10-29 22:38:15">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/77.%20%E4%B8%8D%E8%A6%81%E5%BF%BD%E7%95%A5%E5%BC%82%E5%B8%B8/" title="77. 不要忽略异常">77. 不要忽略异常</a><time datetime="2022-10-29T14:38:15.000Z" title="发表于 2022-10-29 22:38:15">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/04.%20%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E9%9D%9E%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="04. 使用私有构造方法执行非实例化">04. 使用私有构造方法执行非实例化</a><time datetime="2022-10-29T14:38:14.000Z" title="发表于 2022-10-29 22:38:14">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/63.%20%E5%BD%93%E5%BF%83%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/" title="63. 当心字符串连接引起的性能问题">63. 当心字符串连接引起的性能问题</a><time datetime="2022-10-29T14:38:14.000Z" title="发表于 2022-10-29 22:38:14">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/35.%20%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7%E6%9B%BF%E4%BB%A3%E5%BA%8F%E6%95%B0/" title="35. 使用实例属性替代序数">35. 使用实例属性替代序数</a><time datetime="2022-10-29T14:38:13.000Z" title="发表于 2022-10-29 22:38:13">2022-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By lytree</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536" style="text-align: center; display: inline-block; text-decoration: none; height: 20px; line-height: 20px"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://z3.ax1x.com/2021/11/03/IAgu2q.png" style="float: left" /><span style="margin-left: 5px;">豫公网安备 41018402000536号</span></a><a href="https://beian.miit.gov.cn/" style="text-align: center; display: inline-block; text-decoration: none; height: 20px; line-height: 20px" target="_blank"><span style="margin-left: 5px;">豫ICP备2021004086号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>48. 谨慎使用流并行 | 杨柳亭</title><meta name="author" content="lytree"><meta name="copyright" content="lytree"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="48. 谨慎使用流并行48. 谨慎使用流并行　　　　在主流语言中，Java 一直处于提供简化并发编程任务的工具的最前沿。 当 Java 于 1996 年发布时，它内置了对线程的支持，包括同步和 wait &#x2F; notify 机制。 Java 5 引入了 java.util.concurrent 类库，带有并发集合和执行器框架。 Java 7 引入了 fork-join 包，这是一个用于并行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="48. 谨慎使用流并行">
+<meta property="og:url" content="https://prideyang.top/2022/10/29/Effective-Java/48.%20%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E5%B9%B6%E8%A1%8C/index.html">
+<meta property="og:site_name" content="杨柳亭">
+<meta property="og:description" content="48. 谨慎使用流并行48. 谨慎使用流并行　　　　在主流语言中，Java 一直处于提供简化并发编程任务的工具的最前沿。 当 Java 于 1996 年发布时，它内置了对线程的支持，包括同步和 wait &#x2F; notify 机制。 Java 5 引入了 java.util.concurrent 类库，带有并发集合和执行器框架。 Java 7 引入了 fork-join 包，这是一个用于并行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://prideyang.top/img/avatar.jpg">
+<meta property="article:published_time" content="2022-10-29T14:38:01.000Z">
+<meta property="article:modified_time" content="2022-12-31T08:49:42.029Z">
+<meta property="article:author" content="lytree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://prideyang.top/img/avatar.jpg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="https://prideyang.top/2022/10/29/Effective-Java/48.%20%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E5%B9%B6%E8%A1%8C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '48. 谨慎使用流并行',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-31 16:49:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="杨柳亭"><span class="site-name">杨柳亭</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">48. 谨慎使用流并行</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-29T14:38:01.000Z" title="发表于 2022-10-29 22:38:01">2022-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-31T08:49:42.029Z" title="更新于 2022-12-31 16:49:42">2022-12-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="48. 谨慎使用流并行"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="48-谨慎使用流并行"><a href="#48-谨慎使用流并行" class="headerlink" title="48. 谨慎使用流并行"></a>48. 谨慎使用流并行</h1><h1 id="48-谨慎使用流并行-1"><a href="#48-谨慎使用流并行-1" class="headerlink" title="48. 谨慎使用流并行"></a>48. 谨慎使用流并行</h1><p>　　　　在主流语言中，Java 一直处于提供简化并发编程任务的工具的最前沿。 当 Java 于 1996 年发布时，它内置了对线程的支持，包括同步和 wait &#x2F; notify 机制。 Java 5 引入了 <code>java.util.concurrent</code> 类库，带有并发集合和执行器框架。 Java 7 引入了 fork-join 包，这是一个用于并行分解的高性能框架。 Java 8 引入了流，可以通过对 <code>parallel</code> 方法的单个调用来并行化。 用 Java 编写并发程序变得越来越容易，但编写正确快速的并发程序还像以前一样困难。 安全和活跃度违规（liveness violation）是并发编程中的事实，并行流管道也不例外。</p>
+<p>　　　　考虑条目 45 中的程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Stream-based program to generate the first 20 Mersenne primes</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    primes().map(p -&gt; TWO.pow(p.intValueExact()).subtract(ONE))</span><br><span class="line">        .filter(mersenne -&gt; mersenne.isProbablePrime(<span class="number">50</span>))</span><br><span class="line">        .limit(<span class="number">20</span>)</span><br><span class="line">        .forEach(System.out::println);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> Stream&lt;BigInteger&gt; <span class="title function_">primes</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Stream.iterate(TWO, BigInteger::nextProbablePrime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　　　在我的机器上，这个程序立即开始打印素数，运行到完成需要 12.5 秒。假设我天真地尝试通过向流管道中添加一个到 <code>parallel()</code> 的调用来加快速度。你认为它的表现会怎样?它会快几个百分点吗?慢几个百分点?遗憾的是，它不会打印任何东西，但是 CPU 使用率会飙升到 90%，并且会无限期地停留在那里 (liveness failure:活性失败)。这个程序可能最终会终止，但我不愿意去等待；半小时后我强行阻止了它。</p>
+<p>　　　　这里发生了什么？简而言之，流类库不知道如何并行化此管道并且启发式失败（heuristics fail）。 <strong>即使在最好的情况下，如果源来自 Stream.iterate 方法，或者使用中间操作 limit 方法，并行化管道也不太可能提高其性能。</strong> 这个管道必须应对这两个问题。更糟糕的是，默认的并行策略处理不可预测性的 <code>limit</code> 方法，假设在处理一些额外的元素和丢弃任何不必要的结果时没有害处。在这种情况下，找到每个梅森素数的时间大约是找到上一个素数的两倍。因此，计算单个额外元素的成本大致等于计算所有先前元素组合的成本，并且这种无害的管道使自动并行化算法瘫痪。这个故事的寓意很简单：不要无差别地并行化流管道（stream pipelines）。性能后果可能是灾难性的。</p>
+<p>　　　　<strong>通常，并行性带来的性能收益在 ​</strong>​**<code>ArrayList</code><strong>​</strong>、<strong>​</strong><code>HashMap</code><strong>​</strong>、<strong>​</strong><code>HashSet</code><strong>​</strong>​ 和 ​<strong>​</strong><code>ConcurrentHashMap</code><strong>​</strong>​ 实例、数组、<strong>​</strong><code>int</code><strong>​</strong>​ 类型范围和 ​<strong>​</strong><code>long</code><strong>​</strong>​ 类型的范围的流上最好。** 这些数据结构的共同之处在于，它们都可以精确而廉价地分割成任意大小的子程序，这使得在并行线程之间划分工作变得很容易。用于执行此任务的流泪库使用的抽象是 <code>spliterator</code>，它由 <code>spliterator</code> 方法在 <code>Stream</code> 和 <code>Iterable</code> 上返回。</p>
+<p>　　　　所有这些数据结构的共同点的另一个重要因素是它们在顺序处理时提供了从良好到极好的引用位置（ locality of reference）：顺序元素引用在存储器中存储在一块。 这些引用所引用的对象在存储器中可能彼此不接近，这降低了引用局部性。 对于并行化批量操作而言，引用位置非常重要：没有它，线程大部分时间都处于空闲状态，等待数据从内存传输到处理器的缓存中。 具有最佳引用位置的数据结构是基本类型的数组，因为数据本身连续存储在存储器中。</p>
+<p>　　　　流管道终端操作的性质也会影响并行执行的有效性。 如果与管道的整体工作相比，在终端操作中完成了大量的工作，并且这种操作本质上是连续的，那么并行化管道的有效性将是有限的。 并行性的最佳终操作是缩减（reductions），即使用流的 <code>reduce</code> 方法组合管道中出现的所有元素，或者预先打包的 <code>reduce</code>(如 <code>min</code>、<code>max</code>、<code>count</code> 和 <code>sum</code>)。短路操作 <code>anyMatch</code>、<code>allMatch</code> 和 <code>noneMatch</code> 也可以支持并行性。由 <code>Stream</code> 的 <code>collect</code> 方法执行的操作，称为可变缩减（mutable reductions），不适合并行性，因为组合集合的开销非常大。</p>
+<p>　　　　如果编写自己的 <code>Stream</code>，<code>Iterable</code> 或 <code>Collection</code> 实现，并且希望获得良好的并行性能，则必须重写 <code>spliterator</code> 方法并广泛测试生成的流的并行性能。 编写高质量的 <code>spliterator</code> 很困难，超出了本书的范围。</p>
+<p>　　　　<strong>并行化一个流不仅会导致糟糕的性能，包括活性失败（liveness failures）;它会导致不正确的结果和不可预知的行为 (安全故障)。</strong> 使用映射器（<code>mappers</code>），过滤器（<code>filters</code>）和其他程序员提供的不符合其规范的功能对象的管道并行化可能会导致安全故障。 Stream 规范对这些功能对象提出了严格的要求。 例如，传递给 <code>Stream</code> 的 <code>reduce</code> 方法操作的累加器（<code>accumulator</code>）和组合器（<code>combiner</code>）函数必须是关联的，非干扰的和无状态的。 如果违反了这些要求（其中一些在第 46 项中讨论过），但按顺序运行你的管道，则可能会产生正确的结果; 如果将它并行化，它可能会失败，也许是灾难性的。</p>
+<p>　　　　沿着这些思路，值得注意的是，即使并行的梅森素数程序已经运行完成，它也不会以正确的 (升序的) 顺序打印素数。为了保持顺序版本显示的顺序，必须将 <code>forEach</code> 终端操作替换为 <code>forEachOrdered</code> 操作，它保证以遇出现顺序（encounter order）遍历并行流。</p>
+<p>　　　　即使假设正在使用一个高效的可拆分的源流、一个可并行化的或廉价的终端操作以及非干扰的函数对象，也无法从并行化中获得良好的加速效果，除非管道做了足够的实际工作来抵消与并行性相关的成本。作为一个非常粗略的估计，流中的元素数量乘以每个元素执行的代码行数应该至少是 100,000 [Lea14]。</p>
+<p>　　　　重要的是要记住并行化流是严格的性能优化。 与任何优化一样，必须在更改之前和之后测试性能，以确保它值得做（详见第 67 条）。 理想情况下，应该在实际的系统设置中执行测试。 通常，程序中的所有并行流管道都在公共 fork-join 池中运行。 单个行为不当的管道可能会损害系统中不相关部分的其他行为。</p>
+<p>　　　　如果在并行化流管道时，这种可能性对你不利，那是因为它们确实存在。一个认识的人，他维护一个数百万行代码库，大量使用流，他发现只有少数几个地方并行流是有效的。这并不意味着应该避免并行化流。<strong>在适当的情况下，只需向流管道添加一个 ​</strong>​**<code>parallel</code><strong>​</strong>​ 方法调用，就可以实现处理器内核数量的近似线性加速。** 某些领域，如机器学习和数据处理，特别适合这些加速。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 作为并行性有效的流管道的简单示例，请考虑此函数来计算π(n)，素数小于或等于 n：</span></span><br><span class="line"><span class="comment">// Prime-counting stream pipeline - benefits from parallelization</span></span><br><span class="line"><span class="keyword">static</span> <span class="type">long</span> <span class="title function_">pi</span><span class="params">(<span class="type">long</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> LongStream.rangeClosed(<span class="number">2</span>, n)</span><br><span class="line">        .mapToObj(BigInteger::valueOf)</span><br><span class="line">        .filter(i -&gt; i.isProbablePrime(<span class="number">50</span>))</span><br><span class="line">        .count();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　　　在我的机器上，使用此功能计算π（10<sup>8</sup>）需要 31 秒。 只需添加 <code>parallel()</code> 方法调用即可将时间缩短为 9.2 秒：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Prime-counting stream pipeline - parallel version</span></span><br><span class="line"><span class="keyword">static</span> <span class="type">long</span> <span class="title function_">pi</span><span class="params">(<span class="type">long</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> LongStream.rangeClosed(<span class="number">2</span>, n)</span><br><span class="line">        .parallel()</span><br><span class="line">        .mapToObj(BigInteger::valueOf)</span><br><span class="line">        .filter(i -&gt; i.isProbablePrime(<span class="number">50</span>))</span><br><span class="line">        .count();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　　　换句话说，在我的四核计算机上，并行计算速度提高了 3.7 倍。值得注意的是，这不是你在实践中如何计算π(n) 为 n 的值。还有更有效的算法，特别是 Lehmer’s formula。</p>
+<p>　　　　如果要并行化随机数流，请从 <code>SplittableRandom</code> 实例开始，而不是 <code>ThreadLocalRandom</code>（或基本上过时的 <code>Random</code>）。 <code>SplittableRandom</code> 专为此用途而设计，具有线性加速的潜力。<code>ThreadLocalRandom</code> 设计用于单个线程，并将自身适应作为并行流源，但不会像 <code>SplittableRandom</code> 一样快。<code>Random</code> 实例在每个操作上进行同步，因此会导致过度的并行杀死争用（parallelism-killing contention）。</p>
+<p>　　　　总之，甚至不要尝试并行化流管道，除非你有充分的理由相信它将保持计算的正确性并提高其速度。不恰当地并行化流的代价可能是程序失败或性能灾难。如果您认为并行性是合理的，那么请确保您的代码在并行运行时保持正确，并在实际情况下进行仔细的性能度量。如果您的代码是正确的，并且这些实验证实了您对性能提高的怀疑，那么并且只有这样才能在生产代码中并行化流。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://prideyang.top">lytree</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://prideyang.top/2022/10/29/Effective-Java/48.%20%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E5%B9%B6%E8%A1%8C/">https://prideyang.top/2022/10/29/Effective-Java/48.%20%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E5%B9%B6%E8%A1%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://prideyang.top" target="_blank">杨柳亭</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/29/Effective-Java/49.%20%E6%A3%80%E6%9F%A5%E5%8F%82%E6%95%B0%E6%9C%89%E6%95%88%E6%80%A7/" title="49. 检查参数有效性"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">49. 检查参数有效性</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/29/Effective-Java/68.%20%E9%81%B5%E5%AE%88%E8%A2%AB%E5%B9%BF%E6%B3%9B%E8%AE%A4%E5%8F%AF%E7%9A%84%E5%91%BD%E5%90%8D%E7%BA%A6%E5%AE%9A/" title="68. 遵守被广泛认可的命名约定"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">68. 遵守被广泛认可的命名约定</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">lytree</div><div class="author-info__description">杨柳亭</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#48-%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E5%B9%B6%E8%A1%8C"><span class="toc-number">1.</span> <span class="toc-text">48. 谨慎使用流并行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#48-%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E5%B9%B6%E8%A1%8C-1"><span class="toc-number">2.</span> <span class="toc-text">48. 谨慎使用流并行</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/66.%20%E6%98%8E%E6%99%BA%E5%AE%A1%E6%85%8E%E5%9C%B0%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95/" title="66. 明智审慎地本地方法">66. 明智审慎地本地方法</a><time datetime="2022-10-29T14:38:15.000Z" title="发表于 2022-10-29 22:38:15">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/77.%20%E4%B8%8D%E8%A6%81%E5%BF%BD%E7%95%A5%E5%BC%82%E5%B8%B8/" title="77. 不要忽略异常">77. 不要忽略异常</a><time datetime="2022-10-29T14:38:15.000Z" title="发表于 2022-10-29 22:38:15">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/04.%20%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E9%9D%9E%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="04. 使用私有构造方法执行非实例化">04. 使用私有构造方法执行非实例化</a><time datetime="2022-10-29T14:38:14.000Z" title="发表于 2022-10-29 22:38:14">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/63.%20%E5%BD%93%E5%BF%83%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/" title="63. 当心字符串连接引起的性能问题">63. 当心字符串连接引起的性能问题</a><time datetime="2022-10-29T14:38:14.000Z" title="发表于 2022-10-29 22:38:14">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/35.%20%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7%E6%9B%BF%E4%BB%A3%E5%BA%8F%E6%95%B0/" title="35. 使用实例属性替代序数">35. 使用实例属性替代序数</a><time datetime="2022-10-29T14:38:13.000Z" title="发表于 2022-10-29 22:38:13">2022-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By lytree</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536" style="text-align: center; display: inline-block; text-decoration: none; height: 20px; line-height: 20px"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://z3.ax1x.com/2021/11/03/IAgu2q.png" style="float: left" /><span style="margin-left: 5px;">豫公网安备 41018402000536号</span></a><a href="https://beian.miit.gov.cn/" style="text-align: center; display: inline-block; text-decoration: none; height: 20px; line-height: 20px" target="_blank"><span style="margin-left: 5px;">豫ICP备2021004086号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

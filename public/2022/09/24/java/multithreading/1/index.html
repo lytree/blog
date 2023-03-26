@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>java 常见线程池和原理 | 杨柳亭</title><meta name="author" content="lytree"><meta name="copyright" content="lytree"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="线程池 Executor 接口：声明了 execute(Runnable runnable)方法，执行任务代码 ExecutorService 接口：继承 Executor 接口，声明方法：submit、invokeAll、invokeAny 以及 shutDown 等 AbstractExecutorService 抽象类：实现 ExecutorService 接口，基本实现 Executor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 常见线程池和原理">
+<meta property="og:url" content="https://prideyang.top/2022/09/24/java/multithreading/1/index.html">
+<meta property="og:site_name" content="杨柳亭">
+<meta property="og:description" content="线程池 Executor 接口：声明了 execute(Runnable runnable)方法，执行任务代码 ExecutorService 接口：继承 Executor 接口，声明方法：submit、invokeAll、invokeAny 以及 shutDown 等 AbstractExecutorService 抽象类：实现 ExecutorService 接口，基本实现 Executor">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://prideyang.top/img/avatar.jpg">
+<meta property="article:published_time" content="2022-09-24T03:05:13.000Z">
+<meta property="article:modified_time" content="2022-09-24T11:08:06.715Z">
+<meta property="article:author" content="lytree">
+<meta property="article:tag" content="thread">
+<meta property="article:tag" content="原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://prideyang.top/img/avatar.jpg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="https://prideyang.top/2022/09/24/java/multithreading/1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'java 常见线程池和原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-24 19:08:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="杨柳亭"><span class="site-name">杨柳亭</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">java 常见线程池和原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-24T03:05:13.000Z" title="发表于 2022-09-24 11:05:13">2022-09-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-24T11:08:06.715Z" title="更新于 2022-09-24 19:08:06">2022-09-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/">java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="java 常见线程池和原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a name="Gkm0l"></a></p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><ol>
+<li>Executor 接口：<br>声明了 execute(Runnable runnable)方法，执行任务代码</li>
+<li>ExecutorService 接口：<br>继承 Executor 接口，声明方法：submit、invokeAll、invokeAny 以及 shutDown 等</li>
+<li>AbstractExecutorService 抽象类：<br>实现 ExecutorService 接口，基本实现 ExecutorService 中声明的所有方法</li>
+<li>ScheduledExecutorService 接口：<br>继承 ExecutorService 接口，声明定时执行任务方法</li>
+<li>ThreadPoolExecutor 类：<br>继承类 AbstractExecutorService，实现 execute、submit、shutdown、shutdownNow 方法</li>
+<li>ScheduledThreadPoolExecutor 类：<br>继承 ThreadPoolExecutor 类，实现 ScheduledExecutorService 接口并实现其中的方法</li>
+<li>Executors 类：<br>提供快速创建线程池的方法<br><a name="39mLI"></a></li>
+</ol>
+<h2 id="Executor-框架与线程池"><a href="#Executor-框架与线程池" class="headerlink" title="Executor 框架与线程池"></a>Executor 框架与线程池</h2><p>Executor 框架包括：线程池，Executor，Executors，ExecutorService，CompletionService，Future，Callable 等</p>
+<p>Executor 接口中之定义了一个方法 execute（Runnable command），该方法接收一个 Runable 实例，它用来执行一个任务</p>
+<p>ExecutorService 接口继承自 Executor 接口，它提供了更丰富的实现多线程的方法，比如</p>
+<ol>
+<li>submit()方法可以返回Future对象，可以调用isDone()方法查询Future是否已完成，当任务完成时，它具有一个结果，可以通过get()方法获取到该结果，Future提供了cancel()方法用来取消执行pending中的任务。</li>
+<li>shutdown()方法允许之前已经提交的任务执行完毕之后再挂起关闭，shutdownNow()方法则阻止正在等待的任务启动，并尝试停止之前正在执行的任务。</li>
+</ol>
+<p><strong>多线程的缺点：</strong></p>
+<ul>
+<li>处理任务的线程创建和销毁都非常耗时并消耗资源。</li>
+<li>多线程之间的切换也会非常耗时并消耗资源。<br><strong>解决方法：采用线程池</strong></li>
+<li>使用时线程已存在，消除了线程创建的时耗</li>
+<li>通过设置线程数目，防止资源不足</li>
+</ul>
+<p><a name="UG70w"></a></p>
+<h3 id="ThreadPoolExecutor-的全参构造函数参数"><a href="#ThreadPoolExecutor-的全参构造函数参数" class="headerlink" title="ThreadPoolExecutor 的全参构造函数参数"></a>ThreadPoolExecutor 的全参构造函数参数</h3><p>在 Java 中创建线程池常用的类是 ThreadPoolExecutor，该类的全参构造函数如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ThreadPoolExecutor</span><span class="params">(<span class="type">int</span> corePoolSize,</span></span><br><span class="line"><span class="params">                          <span class="type">int</span> maximumPoolSize,</span></span><br><span class="line"><span class="params">                          <span class="type">long</span> keepAliveTime,</span></span><br><span class="line"><span class="params">                          TimeUnit unit,</span></span><br><span class="line"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span><br><span class="line"><span class="params">                          ThreadFactory threadFactory,</span></span><br><span class="line"><span class="params">                          RejectedExecutionHandler handler)</span> &#123;</span><br></pre></td></tr></table></figure>
+
+<p>参数介绍：</p>
+<ul>
+<li><code>corePoolSize</code>：线程池中核心线程数的最大值</li>
+<li><code>maximumPoolSize</code>：线程池中能拥有最多线程数</li>
+<li><code>workQueue</code>：用于缓存任务的阻塞队列，对于不同的应用场景我们可能会采取不同的排队策略，这就需要不同类型的阻塞队列，在线程池中常用的阻塞队列有以下 2 种：<ul>
+<li><code>SynchronousQueue&lt;Runnable&gt;</code>：此队列中不缓存任何一个任务。向线程池提交任务时，如果没有空闲线程来运行任务，则入列操作会阻塞。当有线程来获取任务时，出列操作会唤醒执行入列操作的线程。从这个特性来看，<code>SynchronousQueue</code> 是一个无界队列，因此当使用 <code>SynchronousQueue</code> 作为线程池的阻塞队列时，参数 <code>maximumPoolSizes</code> 没有任何作用。</li>
+<li><code>LinkedBlockingQueue&lt;Runnable&gt;</code>：顾名思义是用链表实现的队列，可以是有界的，也可以是无界的，但在 <code>Executors</code> 中默认使用无界的。</li>
+</ul>
+</li>
+</ul>
+<p><strong>以上三个参数之间的关系如下：</strong></p>
+<ol>
+<li>如果没有空闲的线程执行该任务且当前运行的线程数少于 <code>corePoolSize</code>，则添加新的线程执行该任务。</li>
+<li>如果没有空闲的线程执行该任务且当前的线程数等于 <code>corePoolSize</code> 同时<strong>阻塞队列未满</strong>，则将任务入队列，而不添加新的线程。</li>
+<li>如果没有空闲的线程执行该任务且阻塞队列已满同时池中的线程数小于 <code>maximumPoolSize</code>，则创建新的线程执行任务。</li>
+<li>如果没有空闲的线程执行该任务且阻塞队列已满同时池中的线程数等于 <code>maximumPoolSize</code>，则根据构造函数中的 <code>handler</code> 指定的策略来拒绝新的任务。</li>
+</ol>
+<ul>
+<li><code>keepAliveTime</code>：表示空闲线程的存活时间。</li>
+<li><code>unit</code>：表示 <code>keepAliveTime</code> 的单位。</li>
+<li><code>handler</code>：表示当 <code>workQueue</code> 已满，且池中的线程数达到 <code>maximumPoolSize</code> 时，线程池拒绝添加新任务时采取的策略。一般可以采取以下四种取值。<br>|                                            |                                                |</li>
+</ul>
+<p>| —————————————— | ———————————————- |<br>| <code>ThreadPoolExecutor.AbortPolicy()</code>         | 抛出 <code>RejectedExecutionException</code>              |<br>| 异常                                       |<br>| <code>ThreadPoolExecutor.CallerRunsPolicy()</code>    | 由向线程池提交任务的线程来执行该任务           |<br>| <code>ThreadPoolExecutor.DiscardOldestPolicy()</code> | 抛弃最旧的任务（最先提交而没有得到执行的任务） |<br>| <code>ThreadPoolExecutor.DiscardPolicy()</code>       | 抛弃当前的任务                                 |</p>
+<ul>
+<li><code>threadFactory</code>：指定创建线程的工厂</li>
+</ul>
+<p><a name="q3i5P"></a></p>
+<h3 id="四种常用线程池（ExecutorService的实现类）"><a href="#四种常用线程池（ExecutorService的实现类）" class="headerlink" title="四种常用线程池（ExecutorService的实现类）"></a>四种常用线程池（ExecutorService的实现类）</h3><p>ThreadPoolExecutor 构造函数的参数很多，使用起来很麻烦，为了方便的创建线程池，JavaSE 中又定义了 Executors 类，Eexcutors 类提供了四个创建线程池的方法，分别如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">newCachedThreadPool</span><br><span class="line">newFixedThreadPool</span><br><span class="line">newSingleThreadExecutor</span><br><span class="line">newScheduleThreadPool</span><br></pre></td></tr></table></figure>
+
+<p><a name="rn45y"></a></p>
+<h4 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h4><p>该方法创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>此类型线程池特点是：</p>
+<ol>
+<li>.工作线程的创建数量几乎没有限制(其实也有限制的,数目为 Interger. MAX_VALUE)</li>
+<li>空闲的工作线程会自动销毁，有新任务会重新创建</li>
+<li>在使用 CachedThreadPool 时，一定要注意控制任务的数量，否则，由于大量线程同时运行，很有会造成系统瘫痪。</li>
+</ol>
+<p><a name="Pr0qS"></a></p>
+<h4 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h4><p>该方法创建一个指定工作线程数量的线程池。每当提交一个任务就创建一个工作线程，如果工作线程数量达到线程池初始的最大数，则将提交的任务存入到池队列中。<br>优点：具有线程池提高程序效率和节省创建线程时所耗的开销。<br>缺点：在线程池空闲时，即线程池中没有可运行任务时，它不会释放工作线程，还会占用一定的系统资源。<br><a name="VIvU7"></a></p>
+<h4 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h4><p>该方法创建一个单线程化的 Executor，即只创建唯一的工作者线程来执行任务，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO,优先级)执行。如果这个线程异常结束，会有另一个取代它，保证顺序执行。<br>单工作线程最大的特点是可保证顺序地执行各个任务，并且在任意给定的时间不会有多个线程是活动的。<br><a name="newScheduleThreadPool"></a></p>
+<h4 id="newScheduleThreadPool"><a href="#newScheduleThreadPool" class="headerlink" title="newScheduleThreadPool"></a>newScheduleThreadPool</h4><p>该方法创建一个定长的线程池，而且支持定时的以及周期性的任务执行，支持定时及周期性任务执行。</p>
+<p><a name="WtQOa"></a></p>
+<h3 id="为什么java的线程池当核心线程满了以后-先往blockingQueue中存任务-queue满了以后"><a href="#为什么java的线程池当核心线程满了以后-先往blockingQueue中存任务-queue满了以后" class="headerlink" title="为什么java的线程池当核心线程满了以后,先往blockingQueue中存任务,queue满了以后"></a>为什么java的线程池当核心线程满了以后,先往blockingQueue中存任务,queue满了以后</h3><p>起到一个缓冲的作用。最大线程数这个参数更像是无奈之举，在最坏的情况下做最后的努力，去新建线程去帮助消化任务。但是这种情况可能存在丢任务的情况。<br><a name="rlRD8"></a></p>
+<h2 id="多线程与异常"><a href="#多线程与异常" class="headerlink" title="多线程与异常"></a>多线程与异常</h2><ol>
+<li>程序在执行过程中遇到异常，默认情况下会释放锁。</li>
+<li>第一个线程出现异常，其他线程会进入同步代码块造成数据异常。</li>
+</ol>
+<p>若想出现异常后不想释放锁，在catch中继续代码块</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://prideyang.top">lytree</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://prideyang.top/2022/09/24/java/multithreading/1/">https://prideyang.top/2022/09/24/java/multithreading/1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://prideyang.top" target="_blank">杨柳亭</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/thread/">thread</a><a class="post-meta__tags" href="/tags/%E5%8E%9F%E7%90%86/">原理</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/24/java/multithreading/2/" title="Volatile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Volatile</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/24/linux/redis-install/" title="Redis 安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Redis 安装</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/09/24/java/multithreading/2/" title="Volatile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-24</div><div class="title">Volatile</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">lytree</div><div class="author-info__description">杨柳亭</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">1.</span> <span class="toc-text">线程池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Executor-%E6%A1%86%E6%9E%B6%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">2.</span> <span class="toc-text">Executor 框架与线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadPoolExecutor-%E7%9A%84%E5%85%A8%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">ThreadPoolExecutor 的全参构造函数参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E5%B8%B8%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%88ExecutorService%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">四种常用线程池（ExecutorService的实现类）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#newCachedThreadPool"><span class="toc-number">2.2.1.</span> <span class="toc-text">newCachedThreadPool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#newFixedThreadPool"><span class="toc-number">2.2.2.</span> <span class="toc-text">newFixedThreadPool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#newSingleThreadExecutor"><span class="toc-number">2.2.3.</span> <span class="toc-text">newSingleThreadExecutor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#newScheduleThreadPool"><span class="toc-number">2.2.4.</span> <span class="toc-text">newScheduleThreadPool</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88java%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%BD%93%E6%A0%B8%E5%BF%83%E7%BA%BF%E7%A8%8B%E6%BB%A1%E4%BA%86%E4%BB%A5%E5%90%8E-%E5%85%88%E5%BE%80blockingQueue%E4%B8%AD%E5%AD%98%E4%BB%BB%E5%8A%A1-queue%E6%BB%A1%E4%BA%86%E4%BB%A5%E5%90%8E"><span class="toc-number">2.3.</span> <span class="toc-text">为什么java的线程池当核心线程满了以后,先往blockingQueue中存任务,queue满了以后</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%BC%82%E5%B8%B8"><span class="toc-number">3.</span> <span class="toc-text">多线程与异常</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/66.%20%E6%98%8E%E6%99%BA%E5%AE%A1%E6%85%8E%E5%9C%B0%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95/" title="66. 明智审慎地本地方法">66. 明智审慎地本地方法</a><time datetime="2022-10-29T14:38:15.000Z" title="发表于 2022-10-29 22:38:15">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/77.%20%E4%B8%8D%E8%A6%81%E5%BF%BD%E7%95%A5%E5%BC%82%E5%B8%B8/" title="77. 不要忽略异常">77. 不要忽略异常</a><time datetime="2022-10-29T14:38:15.000Z" title="发表于 2022-10-29 22:38:15">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/04.%20%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E9%9D%9E%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="04. 使用私有构造方法执行非实例化">04. 使用私有构造方法执行非实例化</a><time datetime="2022-10-29T14:38:14.000Z" title="发表于 2022-10-29 22:38:14">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/63.%20%E5%BD%93%E5%BF%83%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/" title="63. 当心字符串连接引起的性能问题">63. 当心字符串连接引起的性能问题</a><time datetime="2022-10-29T14:38:14.000Z" title="发表于 2022-10-29 22:38:14">2022-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/29/Effective-Java/35.%20%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7%E6%9B%BF%E4%BB%A3%E5%BA%8F%E6%95%B0/" title="35. 使用实例属性替代序数">35. 使用实例属性替代序数</a><time datetime="2022-10-29T14:38:13.000Z" title="发表于 2022-10-29 22:38:13">2022-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By lytree</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536" style="text-align: center; display: inline-block; text-decoration: none; height: 20px; line-height: 20px"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://z3.ax1x.com/2021/11/03/IAgu2q.png" style="float: left" /><span style="margin-left: 5px;">豫公网安备 41018402000536号</span></a><a href="https://beian.miit.gov.cn/" style="text-align: center; display: inline-block; text-decoration: none; height: 20px; line-height: 20px" target="_blank"><span style="margin-left: 5px;">豫ICP备2021004086号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
