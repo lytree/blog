@@ -6,7 +6,7 @@ image:
 math: true
 license:
 categories:
-  - leetoced
+  - leetcode
 tags:
   - array
   - tree
