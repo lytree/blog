@@ -1,7 +1,7 @@
 ---
 title: ThreadLocal
 date: 2023-05-27T19:29:23Z
-lastmod: 2023-05-27T19:29:38Z
+lastmod: 2023-05-29T22:47:04Z
 ---
 
 # ThreadLocal
@@ -12,14 +12,19 @@ lastmod: 2023-05-27T19:29:38Z
 
 ### 为何要Entry使用用弱引用
 
-　　如果强引用，即使ThreadLocal对象为null ，ThreadLocalMap的key依旧会指向ThreadLocal对象，会造成内存泄漏。使用弱引用依旧会造成内存泄漏，如果key释放，value没有释放依旧会造成内存泄漏，在不需要时进行ThreadLocal.remove操作。
+　　如果使用强引用,情况会如下:
 
-　　分析
+* ThreadLocalMap 作为 Thread 的成员变量,会随 Thread 一直保留。
+* ThreadLocalMap 的 key 是 ThreadLocal 对象,如果使用强引用,ThreadLocal 对象会被 ThreadLocalMap 强引用,无法被回收。
+* 而 ThreadLocal 对象可能是唯一对某个对象的引用,这会导致这个对象也无法被回收,发生内存泄露。
 
-　　​![1-9.png](/assets/net-img-1582875452927-44c67a88-5cee-48b1-a764-a26d40a77538-20221030135540-f7dfpln.png)​
+　　使用弱引用可以避免这种情况:
 
-* 在 ThreadLocal 类中定义了一个 ThreadLocalMap，
-* 每一个 Thread 都有一个 ThreadLocalMap 类型的变量 threadLocals
-* threadLocals 内部有一个 Entry，Entry 的 key 是 ThreadLocal 对象实例，value 就是共享变量副本
-* ThreadLocal 的 get 方法就是根据 ThreadLocal 对象实例获取共享变量副本
-* ThreadLocal 的 set 方法就是根据 ThreadLocal 对象实例保存共享变量副本
+* 当 ThreadLocal 对象没有其他强引用时,由于 ThreadLocalMap 中的引用是弱引用,ThreadLocal 对象仍然可以被垃圾回收。
+* 垃圾回收 ThreadLocal 对象后,ThreadLocalMap 中对应的 Entry 的 key 变为 null。
+* 之后 ThreadLocalMap 在执行 get、set、remove 等操作时,会忽略 key 为 null 的 Entry,达到清理作用。
+* 这样就避免了 ThreadLocal 对象由于 ThreadLocalMap 的强引用而无法被回收的问题,解决了内存泄露。
+
+### ThreadLocal 内存泄漏条件
+
+　　ThreadLocal被回收&&线程被复用&&线程复用后不再调用ThreadLocal的set/get/remove方法 才可能 发生内存泄露（条件还是相对苛刻）

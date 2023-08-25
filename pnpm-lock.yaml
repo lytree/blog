@@ -14,9 +14,6 @@ dependencies:
   hexo-algoliasearch:
     specifier: ^1.0.0
     version: 1.0.0
-  hexo-asset-img:
-    specifier: ^1.0.0
-    version: 1.0.0
   hexo-generator-archive:
     specifier: ^2.0.0
     version: 2.0.0
@@ -1007,10 +1004,6 @@ packages:
     dependencies:
       algoliasearch: 4.4.0
       striptags: 3.1.1
-    dev: false
-
-  /hexo-asset-img@1.0.0:
-    resolution: {integrity: sha512-9kzp+LINw15ouVrLvCdSLIKGBVhZ/LAJEvWQfowbyXi0OW2jJaJHkSkWcJ6udO4OEaxLvM1ffK+8IXucMAKawQ==}
     dev: false
 
   /hexo-cli@4.3.1:
