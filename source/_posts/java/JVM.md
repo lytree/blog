@@ -39,11 +39,11 @@ lastmod: 2022-10-30T13:39:04Z
 ## java 内存区域
 
 　　jdk8 之前：
-![](assets/net-img-1592902120990-cffe2ea4-a4ed-4505-8bbd-c9b64730ae6e-20230527145229-4455z5v.png)
+![](/assets/net-img-1592902120990-cffe2ea4-a4ed-4505-8bbd-c9b64730ae6e-20230527145229-4455z5v.png)
 
 　　jdk8 及之后
 
-　　![](assets/net-img-1592902119376-b0ab487a-f7f3-454f-a784-aad737462ad4-20230527145229-vu7qxs4.png)
+　　![](/assets/net-img-1592902119376-b0ab487a-f7f3-454f-a784-aad737462ad4-20230527145229-vu7qxs4.png)
 
 ### 程序计数器作用：（唯一）
 
@@ -95,11 +95,11 @@ Jdk8 移除方法区，字符串常量池还在堆中，但运行时常量池在
 
 ## 对象创建过程
 
-　　![](assets/net-img-4122e8fc2d6e2995074ede61ff44aef4-20230527145229-bw8f49a.svg)
+　　![](/assets/net-img-4122e8fc2d6e2995074ede61ff44aef4-20230527145229-bw8f49a.svg)
 
 ### 类加载检查
 
-　　![](assets/net-img-1592902119321-dda9e910-093f-47bf-890e-4719cb145075-20230527145229-565b500.png)
+　　![](/assets/net-img-1592902119321-dda9e910-093f-47bf-890e-4719cb145075-20230527145229-565b500.png)
 
 - 加载
   - 将 class 文件加载到内存中

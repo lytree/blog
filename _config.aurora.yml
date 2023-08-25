@@ -11,19 +11,19 @@
 site:
   subtitle: 杨柳亭
   author: lytree
-  nick: Auroral UI
+  nick:
   description: "杨柳亭"
   link: '/'
-  language: zh-CN
+  language: cn
   multi_language: false
   logo: /img/avatar.jpg
   avatar: /img/avatar.jpg
   beian:
     number: '豫ICP备2021004086号-1'
-    link: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536'
+    link: 'https://beian.miit.gov.cn/ '
   police_beian:
-    number: ''
-    link: ''
+    number: '豫公网安备41018402000536号'
+    link: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536'
   # Start date of the blog YYY-MM-DD
   # 博客开始运行日期
   started_date:
@@ -39,13 +39,13 @@ site:
 #! ---------------------------------------------------------------
 authors:
   ##! example
-  # TriDiamond:
-  #   name: TriDiamond
-  #   avatar: https://up.enterdesk.com/edpic_source/44/ff/3d/44ff3d6bd2819d524facfcc33205d4cd.jpg
-  #   link: https://github.com/TriDiamond
-  #   description: 'Think like an artist, code like an artisan.'
-  #   socials:
-  #     github: https://tridiamond.tech
+  TriDiamond:
+    name: TriDiamond
+    avatar: https://up.enterdesk.com/edpic_source/44/ff/3d/44ff3d6bd2819d524facfcc33205d4cd.jpg
+    link: https://github.com/TriDiamond
+    description: 'Think like an artist, code like an artisan.'
+    socials:
+      github: https://tridiamond.tech
 
 #! ---------------------------------------------------------------
 #! Menu Configs
@@ -63,7 +63,7 @@ menu:
 #! ---------------------------------------------------------------
 theme:
   dark_mode: true
-  profile_shape: diamond # support `circle`, `diamond`, `rounded`
+  profile_shape: circle # support `circle`, `diamond`, `rounded`
   feature: true
   gradient:
     color_1: '#24c6dc'
@@ -75,19 +75,26 @@ theme:
 #! @docs https://aurora.tridiamond.tech/guide/social.html
 #! ---------------------------------------------------------------
 socials:
+  github: 'https://github.com/lytree'
+  twitter: ''
+  stackoverflow: ''
+  weibo: 'https://weibo.com/u/5648434038'
+  zhihu: 'https://www.zhihu.com/people/zang-xin-18-71'
+  juejin: 'https://juejin.cn/user/307518986271495'
+
   customs:
   ##! Example:
   ##! --- Using SVG
-  # bilibili:
-  #   icon: http://localhost:4000/svg/bilibili.svg
-  #   link: https://live.bilibili.com/22619211
+    bilibili:
+      icon: /img/svg/bilibili.svg
+      link: https://space.bilibili.com/89673196
 
   ##! --- Using IconFont
   # baidu:
   #   icon: iconfont icon-baidu
   #   link: https://live.bilibili.com/22619211
 
-  ##! --- Using FontAwesome
+  #! --- Using FontAwesome
   # book:
   #   icon: far fa-address-book
   #   link: https://live.bilibili.com/22619211
@@ -201,12 +208,12 @@ injects:
 #! ---------------------------------------------------------------
 #! Footer links
 #! ---------------------------------------------------------------
-footer_links:
-  - title: # main title
-    links:
-      - title: # link title
-        url: # URL link
-      - title: # link title
-        url: # URL link
-      - title: Friends # link of friends mode / 友链模式
-        mode: 'links'
+# footer_links:
+#   - title: # main title
+#     links:
+#       - title: # link title
+#         url: # URL link
+#       - title: # link title
+#         url: # URL link
+#       - title: Friends # link of friends mode / 友链模式
+#         mode: 'links'

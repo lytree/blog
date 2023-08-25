@@ -6,7 +6,7 @@ lastmod: 2023-05-27T15:51:10Z
 
 # Queue
 
-## Queue 	​![image](assets/image-20230527154724-v674duu.png)​
+## Queue 	​![image](./assets/image-20230527154724-v674duu.png)​
 
 　　**注意：不要把 null 添加到队列中，否则 poll()方法返回 null 时，很难确定是取到了 null 元素还是队列为空。**
 
@@ -21,14 +21,14 @@ lastmod: 2023-05-27T15:51:10Z
 
 　　**队列和 Deque 方法的比较**
 
-|队列方法|等效的 Deque 方法|
-| ---------| -----------------|
-|add(e)|addLast(e)|
-|offer(e)|offerLast(e)|
-|remove()|removeFirst()|
-|poll()|pollFirst()|
-|element()|getFirst()|
-|peek()|peekFirst()|
+| 队列方法  | 等效的 Deque 方法 |
+| --------- | ----------------- |
+| add(e)    | addLast(e)        |
+| offer(e)  | offerLast(e)      |
+| remove()  | removeFirst()     |
+| poll()    | pollFirst()       |
+| element() | getFirst()        |
+| peek()    | peekFirst()       |
 
 ## ArrayDeque `implements Deque` (实现接口)
 

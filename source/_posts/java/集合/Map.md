@@ -20,7 +20,7 @@ lastmod: 2022-10-30T13:21:46Z
 
 　　当链表长度大于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树，以减少搜索时间。
 
-　　![](assets/net-img-1591690908749-8d13658b-f28f-4a16-9787-5d802366b2bb-20221030132339-jhzqts2.png)
+　　![](/assets/net-img-1591690908749-8d13658b-f28f-4a16-9787-5d802366b2bb-20221030132339-jhzqts2.png)
 
 > TreeMap、TreeSet 以及 JDK1.8 之后的 HashMap 底层都用到了红黑树。红黑树就是为了解决二叉查找树的缺陷，因为二叉查找树在某些情况下会退化成一个线性结构。
 
@@ -34,34 +34,34 @@ lastmod: 2022-10-30T13:21:46Z
 1. CurrentHashMap重要参数：
 
 ```java
-private static final int MAXIMUM_CAPACITY = 1 << 30; // 数组的最大值 
+private static final int MAXIMUM_CAPACITY = 1 << 30; // 数组的最大值
 
-private static final int DEFAULT_CAPACITY = 16; // 默认数组长度 
+private static final int DEFAULT_CAPACITY = 16; // 默认数组长度
 
-static final int TREEIFY_THRESHOLD = 8; // 链表转红黑树的一个条件 
+static final int TREEIFY_THRESHOLD = 8; // 链表转红黑树的一个条件
 
-static final int UNTREEIFY_THRESHOLD = 6; // 红黑树转链表的一个条件 
+static final int UNTREEIFY_THRESHOLD = 6; // 红黑树转链表的一个条件
 
 static final int MIN_TREEIFY_CAPACITY = 64; // 链表转红黑树的另一个条件
 
-static final int MOVED     = -1;  // 表示正在扩容转移 
+static final int MOVED     = -1;  // 表示正在扩容转移
 
-static final int TREEBIN   = -2; // 表示已经转换成树 
+static final int TREEBIN   = -2; // 表示已经转换成树
 
-static final int RESERVED  = -3; // hash for transient reservations 
+static final int RESERVED  = -3; // hash for transient reservations
 
 static final int HASH_BITS = 0x7fffffff; // 获得hash值的辅助参数
 
-transient volatile Node<K,V>[] table;// 默认没初始化的数组，用来保存元素 
+transient volatile Node<K,V>[] table;// 默认没初始化的数组，用来保存元素
 
-private transient volatile Node<K,V>[] nextTable; // 转移的时候用的数组 
+private transient volatile Node<K,V>[] nextTable; // 转移的时候用的数组
 
-static final int NCPU = Runtime.getRuntime().availableProcessors();// 获取可用的CPU个数 
+static final int NCPU = Runtime.getRuntime().availableProcessors();// 获取可用的CPU个数
 
-private transient volatile Node<K,V>[] nextTable; // 连接表，用于哈希表扩容，扩容完成后会被重置为 null 
+private transient volatile Node<K,V>[] nextTable; // 连接表，用于哈希表扩容，扩容完成后会被重置为 null
 
 private transient volatile long baseCount; //保存着整个哈希表中存储的所有的结点的个数总和，有点类似于 HashMap 的 size 属性。
-private transient volatile int sizeCtl; 
+private transient volatile int sizeCtl;
 //sizeCtl = 0：表示没有指定初始容量
 //sizeCtl > 0：表示初始容量(可以使用阶段)
 //sizeCtl = -1,标记作用，告知其他线程，正在初始化
@@ -117,7 +117,7 @@ private transient volatile int sizeCtl;
                 //f.hash == MOVED 表示为：ForwardingNode，说明其他线程正在扩容
                 //并且这个数组的位置数据已经转移到新的数组结构中
                 //但是数据还没有全部转移完成,帮助线程先扩容
-                // 如果当前节点正在扩容。还要帮着去扩容 
+                // 如果当前节点正在扩容。还要帮着去扩容
                 tab = helpTransfer(tab, f);
             else if (onlyIfAbsent //jdk 检查第一个节点 是否已存在key 存在返回对应value值 check first node without acquiring lock
                      && fh == hash
@@ -192,7 +192,7 @@ private final Node<K,V>[] initTable() {
             Thread.yield(); // 进行线程让步等待
      // 让掉当前线程 CPU 的时间片，使正在运行中的线程重新变成就绪状态，并重新竞争 CPU 的调度权。
      // 它可能会获取到，也有可能被其他线程获取到。
-        else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) { 
+        else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
           //  比较sizeCtl的值与sc是否相等，相等则用 -1 替换,这表明我这个线程在进行初始化了！
             try {
                 if ((tab = table)  null || tab.length  0) {
@@ -200,7 +200,7 @@ private final Node<K,V>[] initTable() {
                     @SuppressWarnings("unchecked")
                     Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
                     table = tab = nt;
-                    sc = n - (n >>> 2); 
+                    sc = n - (n >>> 2);
                 }
             } finally {
                 sizeCtl = sc; //设置sizeCtl 类似threshold

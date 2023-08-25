@@ -8,12 +8,12 @@ subtitle: "杨柳亭"
 description: "杨柳亭"
 keywords:
 author: lytree
-language: zh-CN
+language: cn
 timezone: "Asia/Shanghai"
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://tridiamond.tech
+url: https://prideyang.top/
 permalink: /post/:title.html
 permalink_defaults:
 pretty_urls:
@@ -40,7 +40,7 @@ external_link:
   exclude: ""
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:

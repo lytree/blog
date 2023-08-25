@@ -16,7 +16,7 @@ lastmod: 2023-05-27T19:29:38Z
 
 　　分析
 
-　　​![1-9.png](assets/net-img-1582875452927-44c67a88-5cee-48b1-a764-a26d40a77538-20221030135540-f7dfpln.png)​
+　　​![1-9.png](/assets/net-img-1582875452927-44c67a88-5cee-48b1-a764-a26d40a77538-20221030135540-f7dfpln.png)​
 
 * 在 ThreadLocal 类中定义了一个 ThreadLocalMap，
 * 每一个 Thread 都有一个 ThreadLocalMap 类型的变量 threadLocals
