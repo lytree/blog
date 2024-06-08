@@ -30,9 +30,9 @@ System.out.println(toString);
 System.out.println(instance.getClass().getCanonicalName());
 ```
 
-　　​![image](assets/image-20230619222624-l98xjgi.png)​
+​![image](assets/image-20230619222624-l98xjgi.png)​
 
-　　从例子可以看出，很简单就创建了一个动态类型。ByteBuddy提供了一套流式API，从ByteBuddy实例出发，可以流畅的完成所有的操作和数据定义。
+　　从例子可以看出，很简单就创建了一个动态类型。ByteBuddy提供了一套流式API，从ByteBuddy实例出发，可以流畅的完成所有的操作和数据定义。  
 上面的示例中
 
 * subclass 指定了新创建的类的父类
@@ -72,7 +72,7 @@ public class DynamicTYpe {
                 .make();
 ```
 
-　　​![image](assets/image-20230619222818-5btwdt3.png)​
+​![image](assets/image-20230619222818-5btwdt3.png)​
 
 　　上面的示例代码中，我们增加了两个字段name和age，同时拦截了toString方法，使其输出固定值 “Hello World!”。
 
@@ -138,7 +138,7 @@ public class DynamicTYpe {
                 .getLoaded();
 ```
 
-　　我们使用 WRAPPER 策略来加载适合大多数情况的类，这样生产的动态类不会被ApplicationClassLoader加载到，不会影响到项目中已经存在的类
+　　我们使用 WRAPPER 策略来加载适合大多数情况的类，这样生产的动态类不会被ApplicationClassLoader加载到，不会影响到项目中已经存在的类  
 ​`getLoaded 方法返回一个 Java Class 的实例，它就表示现在加载的动态类`​
 
 ## 拦截方法
@@ -301,18 +301,18 @@ public class MyServiceInterceptor {
         System.out.println("intercept：拦截了" + method.getName());
         return callable.call();
     }
-
+  
 }
 
 ```
 
-##
+## 
 
 　　‍
 
 ## END
 
-　　**参考文章**
+　　**参考文章**  
 ​`bytebuddy官方文档 https://bytebuddy.net/#/tutorial`
 
 　　`https://juejin.cn/post/6844903965553852423#heading-12`​​
