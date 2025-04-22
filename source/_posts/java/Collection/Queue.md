@@ -6,7 +6,7 @@ lastmod: 2023-05-27T15:51:10Z
 
 # Queue
 
-## Queue 	​![image](assets/image-20230527154724-v674duu.png)​
+## Queue 	​![image](/assets/image-20230527154724-v674duu.png)​
 
 　　**注意：不要把 null 添加到队列中，否则 poll()方法返回 null 时，很难确定是取到了 null 元素还是队列为空。**
 

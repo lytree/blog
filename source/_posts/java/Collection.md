@@ -8,9 +8,9 @@ lastmod: 2023-05-27T15:29:52Z
 
 # Collection
 
-​![](assets/net-img-1596005642573-853dc49e-7632-496d-9221-33e3b7879fea-20221030132325-84wdxkw.jpeg)​
+​![](/assets/net-img-1596005642573-853dc49e-7632-496d-9221-33e3b7879fea-20221030132325-84wdxkw.jpeg)​
 
-​![](assets/net-img-1591690708492-8b43720d-e8dc-4e22-9057-dcc4be2210de-20221030132325-ac88yvu.jpeg)​
+​![](/assets/net-img-1591690708492-8b43720d-e8dc-4e22-9057-dcc4be2210de-20221030132325-ac88yvu.jpeg)​
 
 - Collection 接口的接口 对象的集合
   - List 子接口 按进入先后有序保存 可重复
@@ -64,7 +64,7 @@ lastmod: 2023-05-27T15:29:52Z
 
 ## HashTable：全表锁
 
-![](assets/net-img-1591690708909-03b304db-aa14-40fc-954b-2e5812e31b86-20221030132326-7iwfv9t.png)
+![](/assets/net-img-1591690708909-03b304db-aa14-40fc-954b-2e5812e31b86-20221030132326-7iwfv9t.png)
 
 ## JDK7 的 ConcurrentHashMap：
 
@@ -72,13 +72,13 @@ lastmod: 2023-05-27T15:29:52Z
 
 　　一个 `ConcurrentHashMap` 里包含一个 `Segment(片段)` 数组。`Segment` 的结构和 `HashMap` 类似，是一种数组和链表结构，一个 `Segment` 包含一个 `HashEntry` 数组，每个 `HashEntry` 是一个链表结构的元素，每个 `Segment` 守护着一个 `HashEntry` 数组里的元素，当对 `HashEntry` 数组的数据进行修改时，必须首先获得对应的 `Segment` 的锁。
 
-　　![](assets/net-img-1591690708399-bf1076aa-bdad-4e5f-ae30-261ccda91da5-20221030132327-4fweook.png)[https://imgchr.com/i/t2J5Kx](https://imgchr.com/i/t2J5Kx)
+　　![](/assets/net-img-1591690708399-bf1076aa-bdad-4e5f-ae30-261ccda91da5-20221030132327-4fweook.png)[https://imgchr.com/i/t2J5Kx](https://imgchr.com/i/t2J5Kx)
 
 ## JDK1.8 的 ConcurrentHashMap（TreeBin: 红黑二叉树节点 Node: 链表节点）`
 
 　　​**​`1.8之前ConcurrentHashMap将hashmap数组分段，对于每个段加锁。而在1.8后几乎与hashmap类似，只是更改了put操作，在计算hash值和索引位置后会先判断数组是否正在扩容。若正在扩容则调用扩容辅助函数。没有则在判断是否为空，为空则采用csa方法放入数组，若不为空则使用synchronized锁住该节点，根据链表或红黑树选择插入方法。最后判断长度，为8则开始转换红黑树。`​** ​ `synchronized `​只锁定当前链表或红黑二叉树的首节点，这样只要 hash 不冲突，就不会产生并发，效率又提升 N 倍。
 
-​![](assets/net-img-1591690708309-b6db1e95-1bbf-4140-b612-26fefc8d85b5-20221030132327-6s3ed7l.png)​
+​![](/assets/net-img-1591690708309-b6db1e95-1bbf-4140-b612-26fefc8d85b5-20221030132327-6s3ed7l.png)​
 
 ## HashMap 和 HashSet 区别
 

@@ -30,7 +30,7 @@ System.out.println(toString);
 System.out.println(instance.getClass().getCanonicalName());
 ```
 
-​![image](assets/image-20230619222624-l98xjgi.png)​
+​![image](/assets/image-20230619222624-l98xjgi.png)​
 
 　　从例子可以看出，很简单就创建了一个动态类型。ByteBuddy提供了一套流式API，从ByteBuddy实例出发，可以流畅的完成所有的操作和数据定义。  
 上面的示例中
@@ -72,7 +72,7 @@ public class DynamicTYpe {
                 .make();
 ```
 
-​![image](assets/image-20230619222818-5btwdt3.png)​
+​![image](/assets/image-20230619222818-5btwdt3.png)​
 
 　　上面的示例代码中，我们增加了两个字段name和age，同时拦截了toString方法，使其输出固定值 “Hello World!”。
 

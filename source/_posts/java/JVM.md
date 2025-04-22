@@ -49,7 +49,7 @@ lastmod: 2023-11-26T14:54:43Z
 
 > 通过java.lang.Thread类的setContextClassLoader()方法进行设置，如果创建线程时还未设置，它将会从父线程中继承一个，如果在应用程序的全局范围内都没有设置过的话，那这个类加载器默认就是应用程序类加载器。
 
-​![image](assets/image-20231117164621-qjdsktw.png)​
+​![image](/assets/image-20231117164621-qjdsktw.png)​
 
 ### 热部署（热替换）
 
@@ -61,7 +61,7 @@ lastmod: 2023-11-26T14:54:43Z
 
 　　一个类的实例总是引用代表这个类的Class对象。在Object类中定义了getClass()方法，这个方法返回代表对象所属类的Class对象的引用。此外，所有的Java类都有一个静态属性class，它引用代表这个类的Class对象。
 
-​![图像](assets/image-20231119124615-vxa33dm.png)​
+​![图像](/assets/image-20231119124615-vxa33dm.png)​
 
 ## to区域被填满了，to区中的有的对象年龄还没被复制15次，也会被移动到年老代中吗？
 
