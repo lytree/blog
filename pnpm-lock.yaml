@@ -47,9 +47,6 @@ importers:
       hexo-theme-butterfly:
         specifier: ^5.3.5
         version: 5.3.5
-      hexo-theme-kratos-rebirth:
-        specifier: 3.0.0-alpha.3
-        version: 3.0.0-alpha.3
       hexo-theme-next:
         specifier: ^8.23.0
         version: 8.23.0
@@ -509,9 +506,6 @@ packages:
 
   hexo-theme-butterfly@5.3.5:
     resolution: {integrity: sha512-Zh2mc7Tj+QAatUBEkhbfHuyb779ZOd72bx12CDohK0cEQ4rtc4Tc4ukuTiTsNJv5hd7ipMjWXpDJwKIzPTN01Q==}
-
-  hexo-theme-kratos-rebirth@3.0.0-alpha.3:
-    resolution: {integrity: sha512-A+D/yMlMtOXbhzHylHVQUJNhd83dmAc6kc2RX8/m+eRpdZCJ2WBK+uGA0wOAYqgdGVopBoWZqwUKRIo+Yaz2OQ==}
 
   hexo-theme-next@8.23.0:
     resolution: {integrity: sha512-hHRuGRCTF1HyIjvucK3Ylxr2qYB2/bFXdD/IWyPtxcVvkLgn3jcwBq4Zw/ksd0qtKNnLnjrlwWSH9Dyy9Li5mA==}
@@ -1500,8 +1494,6 @@ snapshots:
       hexo-renderer-stylus: 3.0.1
     transitivePeerDependencies:
       - supports-color
-
-  hexo-theme-kratos-rebirth@3.0.0-alpha.3: {}
 
   hexo-theme-next@8.23.0: {}
 

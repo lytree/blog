@@ -25,7 +25,6 @@
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-theme-butterfly": "^5.3.5",
-    "hexo-theme-kratos-rebirth": "3.0.0-alpha.3",
     "hexo-theme-next": "^8.23.0",
     "hexo-util": "^3.3.0",
     "katex": "^0.16.22"
