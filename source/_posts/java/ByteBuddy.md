@@ -289,7 +289,7 @@ class ToStringAgent {
                 }).installOn(instrumentation);
 ```
 
-## [Transformer](https://so.csdn.net/so/search?q=Transformer&spm=1001.2101.3001.7020)
+## Transformer
 
 　　Transformer 接口定义了 transform方法，会传入DynamicType.Builder实例，通过该builder，就可以对匹配到的类进行操作，就和上面讲的 ByteBuddy创建动态类型时类似操作，可以定义字段以及对方法进行拦截操作等，上面的例子就是对匹配到的类的hello方法进行了方法委托，在调用hello方法时，将会委托给 MyServiceInterceptor类
 
@@ -305,10 +305,6 @@ public class MyServiceInterceptor {
 }
 
 ```
-
-## 
-
-　　‍
 
 ## END
 
