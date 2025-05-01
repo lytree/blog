@@ -442,7 +442,7 @@ darkmode:
   # autoChangeMode: 1  跟隨系統設置，如果系統不支持暗黑模式，則在晚上 6 點到早上 6 點之間切換暗黑模式
   # autoChangeMode: 2  在晚上 6 點到早上 6 點之間切換暗黑模式
   # autoChangeMode: false  不自動切換
-  autoChangeMode: false
+  autoChangeMode: 1
   # 設置明亮模式時間，值在 0 到 24 之間。如果未設置，默認值為 6 和 18
   start:
   end:
