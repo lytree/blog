@@ -28,6 +28,6 @@
     "hexo-theme-next": "^8.23.0",
     "hexo-util": "^3.3.0",
     "katex": "^0.16.22",
-    "moment-timezone": "^0.5.48"
+    "moment-timezone": "^0.6.0"
   }
 }
