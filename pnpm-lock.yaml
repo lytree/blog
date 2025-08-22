@@ -48,8 +48,8 @@ importers:
         specifier: ^5.4.3
         version: 5.4.3
       hexo-theme-next:
-        specifier: ^8.24.0
-        version: 8.24.0
+        specifier: ^8.24.1
+        version: 8.24.1
       hexo-util:
         specifier: ^3.3.0
         version: 3.3.0
@@ -115,8 +115,8 @@ packages:
     resolution: {integrity: sha512-D2hP9eA+Sqx1kBZgzxZh0y1trbuU+JoDkiEwqhQ36nodYqJwyEIhPSdMNd7lOm/4io72luTPWH20Yda0xOuUow==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.28.0':
-    resolution: {integrity: sha512-jVZGvOxOuNSsuQuLRTh13nU0AogFlw32w/MT+LV6D3sP5WdbW61E77RnkbaO2dUvmPAYrBDJXGn5gGS6tH4j8g==}
+  '@babel/parser@7.28.3':
+    resolution: {integrity: sha512-7+Ey1mAgYqFAx2h0RuoxcQT5+MlG3GTV0TQrgr7/ZliKsm/MNDxVVutlWaziMq7wJNAz8MTqz55XLpWvva6StA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -491,8 +491,8 @@ packages:
   hexo-theme-butterfly@5.4.3:
     resolution: {integrity: sha512-TfR4uRSP/XfNCO0C0uoJ8XXuOyrH58Ie0L+BUBPshc3lW8A74QgjPcqESsDriIjlTdrKzjIC3X1FkN6CZqOJew==}
 
-  hexo-theme-next@8.24.0:
-    resolution: {integrity: sha512-GMjNgoygyHWlPSRGZVjsjhPIEXmtWl0OWWmXxNbZdsf/f4fx+wS3OOxecFfsVJe9FVEv0Uu1hOvxPSgOjdDsSQ==}
+  hexo-theme-next@8.24.1:
+    resolution: {integrity: sha512-DTa+umV5XTDa8XEtiLkaKDzgHqlnrj5HXi+6auI690TJdbIULm9sgaUQFkriDr2jeeGQDUV4ptsvgTTRaZjiGw==}
 
   hexo-util@3.3.0:
     resolution: {integrity: sha512-YvGngXijE2muEh5L/VI4Fmjqb+/yAkmY+VuyhWVoRwQu1X7bmWodsfYRXX7CUYhi5LqsvH8FAe/yBW1+f6ZX4Q==}
@@ -1047,7 +1047,7 @@ snapshots:
 
   '@babel/helper-validator-identifier@7.27.1': {}
 
-  '@babel/parser@7.28.0':
+  '@babel/parser@7.28.3':
     dependencies:
       '@babel/types': 7.28.2
 
@@ -1196,7 +1196,7 @@ snapshots:
 
   constantinople@4.0.1:
     dependencies:
-      '@babel/parser': 7.28.0
+      '@babel/parser': 7.28.3
       '@babel/types': 7.28.2
 
   cross-spawn@7.0.6:
@@ -1463,7 +1463,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hexo-theme-next@8.24.0: {}
+  hexo-theme-next@8.24.1: {}
 
   hexo-util@3.3.0:
     dependencies:
@@ -1975,7 +1975,7 @@ snapshots:
 
   with@7.0.2:
     dependencies:
-      '@babel/parser': 7.28.0
+      '@babel/parser': 7.28.3
       '@babel/types': 7.28.2
       assert-never: 1.4.0
       babel-walk: 3.0.0-canary-5
