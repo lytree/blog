@@ -4,7 +4,7 @@
 
 nav:
   # 導航欄 Logo 圖片
-  logo:
+  logo: 
   # 是否顯示標題
   display_title: true
   # 是否固定導航欄
@@ -55,7 +55,7 @@ favicon: /img/favicon.png
 # 頭像設置
 avatar:
   # 頭像圖片鏈接
-  img: https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png
+  img: https://index-1257980368.cos.ap-guangzhou.myqcloud.com/20220514082644.jpg
   # 是否啟用頭像效果
   effect: false
 
