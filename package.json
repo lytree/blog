@@ -15,6 +15,7 @@
     "@renbaoshuo/markdown-it-katex": "^2.0.2",
     "hexo": "^8.0.0",
     "hexo-algoliasearch": "^2.0.1",
+    "hexo-blog-encrypt": "^3.1.9",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-index": "^4.0.0",
@@ -24,10 +25,10 @@
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-butterfly": "^5.5.0",
+    "hexo-theme-butterfly": "^5.5.1",
     "hexo-theme-next": "^8.25.0",
     "hexo-util": "^3.3.0",
-    "katex": "^0.16.22",
+    "katex": "^0.16.23",
     "moment-timezone": "^0.6.0"
   }
 }
