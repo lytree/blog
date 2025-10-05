@@ -499,11 +499,11 @@ wordcount:
 # 不蒜子 PV / UV 統計
 busuanzi:
   # 網站 UV 統計
-  site_uv: true
+  site_uv: false
   # 網站 PV 統計
-  site_pv: true
+  site_pv: false
   # 頁面 PV 統計
-  page_pv: true
+  page_pv: false
 
 # --------------------------------------
 # 數學公式設置
@@ -521,7 +521,7 @@ math:
 
   mathjax:
     # 啟用上下文菜單
-    enableMenu: true
+    enableMenu: false
     # 選擇：all / ams / none，這控制是否對公式編號以及如何編號
     tags: none
 
@@ -569,7 +569,7 @@ search:
 share:
   # 選擇：sharejs / addtoany
   # 如果不需要分享功能，保持為空
-  use: sharejs
+  use: 
 
   # Share.js
   # https://github.com/overtrue/share.js
@@ -1058,7 +1058,7 @@ abcjs:
 # https://github.com/mermaid-js/mermaid
 mermaid:
   # 是否啟用 Mermaid
-  enable: false
+  enable: true
   # 使用代碼塊編寫 Mermaid 圖表
   code_write: false
   # 內置主題: default / forest / dark / neutral
@@ -1203,7 +1203,7 @@ CDN:
   # 注意： Dev 版本只能使用 'local' 作為內部腳本
   # 注意：將第三方腳本設置為 'local' 時，需要安裝 hexo-butterfly-extjs
   internal_provider: local
-  third_party_provider: jsdelivr
+  third_party_provider: unpkg
 
   # 是否在 URL 中添加版本號，true 或 false
   version: false
