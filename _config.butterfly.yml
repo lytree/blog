@@ -50,12 +50,12 @@ social:
 # --------------------------------------
 
 # 網站的 favicon 圖標
-favicon: /img/favicon.png
+favicon: /img/avatar.jpg
 
 # 頭像設置
 avatar:
   # 頭像圖片鏈接
-  img: https://index-1257980368.cos.ap-guangzhou.myqcloud.com/20220514082644.jpg
+  img: /img/avatar.jpg
   # 是否啟用頭像效果
   effect: false
 
