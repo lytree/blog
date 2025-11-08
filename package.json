@@ -25,8 +25,10 @@
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-butterfly": "^5.5.1",
+    "hexo-theme-butterfly": "^5.5.2",
     "hexo-theme-next": "^8.26.0",
+    "hexo-theme-butterfly": "^5.5.2",
+    "hexo-theme-next": "^8.25.0",
     "hexo-util": "^4.0.0",
     "katex": "^0.16.25",
     "moment-timezone": "^0.6.0"
