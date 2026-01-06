@@ -51,8 +51,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
       hexo-theme-next:
-        specifier: ^8.26.0
-        version: 8.26.0
+        specifier: ^8.27.0
+        version: 8.27.0
       hexo-util:
         specifier: ^4.0.0
         version: 4.0.0
@@ -512,8 +512,8 @@ packages:
   hexo-theme-butterfly@5.5.2:
     resolution: {integrity: sha512-4ZHHVqBnBSRAdE9dG6HwWqLo9RWKRPFDhZmTicjs8e8kXd/4XLXT4y6Mbv+9HxonjkC9TM/10Jxx2wtFcgrbKw==}
 
-  hexo-theme-next@8.26.0:
-    resolution: {integrity: sha512-AJZKqaBM4W+Dhnf7imD4F26q+OKk7ArmrrKvYcf35Lw55CHzxhGQewxJXNL0y78So1FV825/O9DDPCb3yJCPfw==}
+  hexo-theme-next@8.27.0:
+    resolution: {integrity: sha512-5rD5njY+u3ThgD3jwz/4tQhgCJPxWJ5tBshOl+IHv04UlY76/UjUn8fEamJUVcznbmPqEVQ/fv5ED+6Y6v5B2Q==}
 
   hexo-util@3.3.0:
     resolution: {integrity: sha512-YvGngXijE2muEh5L/VI4Fmjqb+/yAkmY+VuyhWVoRwQu1X7bmWodsfYRXX7CUYhi5LqsvH8FAe/yBW1+f6ZX4Q==}
@@ -713,6 +713,7 @@ packages:
 
   moize@6.1.6:
     resolution: {integrity: sha512-vSKdIUO61iCmTqhdoIDrqyrtp87nWZUmBPniNjO0fX49wEYmyDO4lvlnFXiGcaH1JLE/s/9HbiK4LSHsbiUY6Q==}
+    deprecated: This library has been deprecated in favor of micro-memoize, which as-of version 5 incorporates most of the functionality that this library offers at nearly half the size and better speed.
 
   moment-timezone@0.5.48:
     resolution: {integrity: sha512-f22b8LV1gbTO2ms2j2z13MuPogNoh5UzxL3nzNAYKGraILnbGc9NEE6dyiiiLv46DGRb8A4kg8UKWLjPthxBHw==}
@@ -1514,7 +1515,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hexo-theme-next@8.26.0: {}
+  hexo-theme-next@8.27.0: {}
 
   hexo-util@3.3.0:
     dependencies:
