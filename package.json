@@ -28,7 +28,7 @@
     "hexo-theme-butterfly": "^5.5.4",
     "hexo-theme-next": "^8.27.0",
     "hexo-util": "^4.0.0",
-    "katex": "^0.16.28",
+    "katex": "^0.16.33",
     "moment-timezone": "^0.6.0"
   }
 }
