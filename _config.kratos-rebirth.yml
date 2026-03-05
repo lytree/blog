@@ -17,7 +17,7 @@ search:
 
 # 图片配置
 image:
-  favicon: "/images/favicon.png" # 站点图标
+  favicon: "/images/avatar.jpg" # 站点图标
   #avatar: "/assets/logo.webp" # 个人信息挂件上的头像
   banner:
     light: "/images/banner.webp"
@@ -50,7 +50,8 @@ nav:
       icon: about
       url: /about/
       float_right: true
-    
+index:
+  style: "card" # card / half   
 # Footer 页脚配置
 footer:
   components:
