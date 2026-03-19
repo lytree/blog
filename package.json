@@ -27,7 +27,7 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-kratos-rebirth": "^3.0.1",
     "hexo-util": "^4.0.0",
-    "katex": "^0.16.38",
+    "katex": "^0.16.39",
     "moment-timezone": "^0.6.0"
   }
 }
