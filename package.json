@@ -28,6 +28,6 @@
     "hexo-theme-kratos-rebirth": "^3.0.1",
     "hexo-util": "^4.0.0",
     "katex": "^0.16.33",
-    "moment-timezone": "^0.6.0"
+    "moment-timezone": "^0.6.1"
   }
 }
