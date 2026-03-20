@@ -61,8 +61,8 @@ footer:
     author:
       homepage: "https://github.com/Candinya/Kratos-Rebirth/graphs/contributors"
     additional: # 托管信息等
-      - - <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536"" rel="external nofollow" target="_blank">豫ICP备2021004086号-1</a>
-        - <a href="http://www.beian.gov.cn" rel="external nofollow" target="_blank"><img src="https://www.unpkg.com/hexo-theme-kratos-rebirth@2.2.0/source/images/psr.webp" width="12" height="12" loading="lazy" decoding="auto" />豫公网安备41018402000536号 </a>
+      # - - <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41018402000536"" rel="external nofollow" target="_blank">豫ICP备2021004086号-1</a>
+      #   - <a href="http://www.beian.gov.cn" rel="external nofollow" target="_blank"><img src="https://www.unpkg.com/hexo-theme-kratos-rebirth@2.2.0/source/images/psr.webp" width="12" height="12" loading="lazy" decoding="auto" />豫公网安备41018402000536号 </a>
 # 代码高亮
 syntax_highlighter:
   theme: atom-dark # 代码高亮主题（请参照具体的高亮插件对应的主题样式）
