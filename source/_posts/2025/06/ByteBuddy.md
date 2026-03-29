@@ -1,9 +1,10 @@
 ---
 title: ByteBuddy
-date: 2023-06-19T22:23:00Z
-lastmod: 2023-07-08T13:54:37Z
+date: 2025-06-20 14:48:20
+updated:
+tags: ['Java','Code']
+categories: Java
 ---
-
 # ByteBuddy
 
 ```
@@ -311,4 +312,4 @@ public class MyServiceInterceptor {
 　　**参考文章**  
 ​`bytebuddy官方文档 https://bytebuddy.net/#/tutorial`
 
-　　`https://juejin.cn/post/6844903965553852423#heading-12`​​
+`https://juejin.cn/post/6844903965553852423#heading-12`​​
