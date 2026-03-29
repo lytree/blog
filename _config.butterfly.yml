@@ -50,12 +50,12 @@ social:
 # --------------------------------------
 
 # 網站的 favicon 圖標
-favicon: /img/avatar.jpg
+favicon: /images/avatar.jpg
 
 # 頭像設置
 avatar:
   # 頭像圖片鏈接
-  img: /img/avatar.jpg
+  img: /images/avatar.jpg
   # 是否啟用頭像效果
   effect: false
 
