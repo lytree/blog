@@ -18,8 +18,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1
       hexo-blog-encrypt:
-        specifier: ^3.1.9
-        version: 3.1.9
+        specifier: ^4.0.0
+        version: 4.0.0(hexo@8.1.1(chokidar@3.6.0))
       hexo-generator-archive:
         specifier: ^2.0.0
         version: 2.0.0
@@ -413,7 +413,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -438,8 +438,11 @@ packages:
     resolution: {integrity: sha512-QbzB6M/ZByidBeeNyhTMC7zMl8BddG+ovobO6VjK7HufUW2iHSLZYG93gi3Fri2xji0mTn6c80Q6G60U1ILq+Q==}
     engines: {node: '>=18'}
 
-  hexo-blog-encrypt@3.1.9:
-    resolution: {integrity: sha512-dzuZiW5mD8t1FOhJXqc+IgV1Tc45YtatJb/w8k4PyT9McQxsROQXsBw+zbDembzuqMnbnkCeT2SapZ/r9AgAcw==}
+  hexo-blog-encrypt@4.0.0:
+    resolution: {integrity: sha512-ApdnqKxk1p2zqB/GjwnqaiOQh4DhcrwL+BYDP02p4PpwUE7lFd0GCkBP5E0Kp0ZIjeOMZgriHqH1WIq7nOnITw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      hexo: '>=5'
 
   hexo-cli@4.3.2:
     resolution: {integrity: sha512-druJeBgLpG9ncDS5AhBHdAXk0G4CFj8Qes09pApyZ6bR+nJW1JYiDMuilhudaKDdq+1l49jWXVTidkcb7p0Jbw==}
@@ -1397,7 +1400,9 @@ snapshots:
       algoliasearch: 4.20.0
       striptags: 3.2.0
 
-  hexo-blog-encrypt@3.1.9: {}
+  hexo-blog-encrypt@4.0.0(hexo@8.1.1(chokidar@3.6.0)):
+    dependencies:
+      hexo: 8.1.1(chokidar@3.6.0)
 
   hexo-cli@4.3.2:
     dependencies:
