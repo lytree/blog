@@ -43,13 +43,13 @@ importers:
         version: 3.0.0
       hexo-renderer-stylus:
         specifier: ^3.0.1
-        version: 3.0.1(supports-color@5.5.0)
+        version: 3.0.1
       hexo-server:
         specifier: ^3.0.0
-        version: 3.0.0(supports-color@5.5.0)
+        version: 3.0.0
       hexo-theme-butterfly:
         specifier: ^5.6.0
-        version: 5.6.0(supports-color@5.5.0)
+        version: 5.6.0
       hexo-util:
         specifier: ^4.0.0
         version: 4.0.0
@@ -57,8 +57,8 @@ importers:
         specifier: ^0.18.0
         version: 0.18.0
       moment-timezone:
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.6.3
+        version: 0.6.3
 
 packages:
 
@@ -748,11 +748,11 @@ packages:
     resolution: {integrity: sha512-8/9XgYooMo7/q5tf6zGF4+Wp1jx5sbxV87uK6YvTq9rgDtusLWZCZ8c5C0EhYZbNGudul5EMeMsObO4Ug/gszg==}
     deprecated: This library has been deprecated in favor of micro-memoize, which as-of version 5 incorporates most of the functionality that this library offers at nearly half the size and better speed.
 
-  moment-timezone@0.5.46:
-    resolution: {integrity: sha512-ZXm9b36esbe7OmdABqIWJuBBiLLwAjrN7CE+7sYdCCx82Nabt1wHDj8TVseS59QIlfFPbOoiBPm6ca9BioG4hw==}
+  moment-timezone@0.5.48:
+    resolution: {integrity: sha512-f22b8LV1gbTO2ms2j2z13MuPogNoh5UzxL3nzNAYKGraILnbGc9NEE6dyiiiLv46DGRb8A4kg8UKWLjPthxBHw==}
 
-  moment-timezone@0.6.2:
-    resolution: {integrity: sha512-lDsQv8FoGdBUdf0+TjGsq2orxKuXdwFlQ6Zw6TX3xIcTwTfEpCLyKqvEauvCHJ8iu3KBV8+uPhlv70YsNGdUBQ==}
+  moment-timezone@0.6.3:
+    resolution: {integrity: sha512-pVEPA/HCFHHbwJ130ywnzYuZpkEGcP6Daa/OwNebpA18MybeFHmQilAGGovXgWijQ8vQtmud9jZrziUBgsykfg==}
 
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
@@ -1263,11 +1263,11 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  compression@1.8.1(supports-color@5.5.0):
+  compression@1.8.1:
     dependencies:
       bytes: 3.1.2
       compressible: 2.0.18
-      debug: 2.6.9(supports-color@5.5.0)
+      debug: 2.6.9
       negotiator: 0.6.4
       on-headers: 1.1.0
       safe-buffer: 5.2.1
@@ -1277,10 +1277,10 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  connect@3.7.0(supports-color@5.5.0):
+  connect@3.7.0:
     dependencies:
-      debug: 2.6.9(supports-color@5.5.0)
-      finalhandler: 1.1.2(supports-color@5.5.0)
+      debug: 2.6.9
+      finalhandler: 1.1.2
       parseurl: 1.3.3
       utils-merge: 1.0.1
     transitivePeerDependencies:
@@ -1297,17 +1297,13 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.1
 
-  debug@2.6.9(supports-color@5.5.0):
+  debug@2.6.9:
     dependencies:
       ms: 2.0.0
-    optionalDependencies:
-      supports-color: 5.5.0
 
-  debug@4.4.3(supports-color@5.5.0):
+  debug@4.4.3:
     dependencies:
       ms: 2.1.3
-    optionalDependencies:
-      supports-color: 5.5.0
 
   deepmerge@4.3.1: {}
 
@@ -1403,9 +1399,9 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  finalhandler@1.1.2(supports-color@5.5.0):
+  finalhandler@1.1.2:
     dependencies:
-      debug: 2.6.9(supports-color@5.5.0)
+      debug: 2.6.9
       encodeurl: 1.0.2
       escape-html: 1.0.3
       on-finished: 2.3.0
@@ -1561,32 +1557,32 @@ snapshots:
     dependencies:
       pug: 3.0.4
 
-  hexo-renderer-stylus@3.0.1(supports-color@5.5.0):
+  hexo-renderer-stylus@3.0.1:
     dependencies:
-      nib: 1.2.0(stylus@0.62.0(supports-color@5.5.0))
-      stylus: 0.62.0(supports-color@5.5.0)
+      nib: 1.2.0(stylus@0.62.0)
+      stylus: 0.62.0
     transitivePeerDependencies:
       - supports-color
 
-  hexo-server@3.0.0(supports-color@5.5.0):
+  hexo-server@3.0.0:
     dependencies:
       bluebird: 3.7.2
-      compression: 1.8.1(supports-color@5.5.0)
-      connect: 3.7.0(supports-color@5.5.0)
+      compression: 1.8.1
+      connect: 3.7.0
       mime: 3.0.0
-      morgan: 1.11.0(supports-color@5.5.0)
+      morgan: 1.11.0
       open: 8.4.2
       picocolors: 1.1.1
-      serve-static: 1.16.3(supports-color@5.5.0)
+      serve-static: 1.16.3
     transitivePeerDependencies:
       - supports-color
 
-  hexo-theme-butterfly@5.6.0(supports-color@5.5.0):
+  hexo-theme-butterfly@5.6.0:
     dependencies:
       hexo-renderer-pug: 3.0.0
-      hexo-renderer-stylus: 3.0.1(supports-color@5.5.0)
+      hexo-renderer-stylus: 3.0.1
       hexo-util: 4.0.0
-      moment-timezone: 0.6.2
+      moment-timezone: 0.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -1627,7 +1623,7 @@ snapshots:
       micromatch: 4.0.8
       moize: 6.1.7
       moment: 2.30.1
-      moment-timezone: 0.5.46
+      moment-timezone: 0.5.48
       nunjucks: 3.2.4(chokidar@3.6.0)
       picocolors: 1.1.1
       pretty-hrtime: 1.0.3
@@ -1822,20 +1818,20 @@ snapshots:
       fast-equals: 3.0.1
       micro-memoize: 4.1.2
 
-  moment-timezone@0.5.46:
+  moment-timezone@0.5.48:
     dependencies:
       moment: 2.30.1
 
-  moment-timezone@0.6.2:
+  moment-timezone@0.6.3:
     dependencies:
       moment: 2.30.1
 
   moment@2.30.1: {}
 
-  morgan@1.11.0(supports-color@5.5.0):
+  morgan@1.11.0:
     dependencies:
       basic-auth: 2.0.1
-      debug: 2.6.9(supports-color@5.5.0)
+      debug: 2.6.9
       depd: 2.0.0
       on-finished: 2.4.1
       on-headers: 1.1.0
@@ -1850,9 +1846,9 @@ snapshots:
 
   negotiator@0.6.4: {}
 
-  nib@1.2.0(stylus@0.62.0(supports-color@5.5.0)):
+  nib@1.2.0(stylus@0.62.0):
     dependencies:
-      stylus: 0.62.0(supports-color@5.5.0)
+      stylus: 0.62.0
 
   no-case@3.0.4:
     dependencies:
@@ -2012,9 +2008,9 @@ snapshots:
 
   sax@1.3.0: {}
 
-  send@0.19.2(supports-color@5.5.0):
+  send@0.19.2:
     dependencies:
-      debug: 2.6.9(supports-color@5.5.0)
+      debug: 2.6.9
       depd: 2.0.0
       destroy: 1.2.0
       encodeurl: 2.0.0
@@ -2030,12 +2026,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  serve-static@1.16.3(supports-color@5.5.0):
+  serve-static@1.16.3:
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 0.19.2(supports-color@5.5.0)
+      send: 0.19.2
     transitivePeerDependencies:
       - supports-color
 
@@ -2069,10 +2065,10 @@ snapshots:
 
   striptags@3.2.0: {}
 
-  stylus@0.62.0(supports-color@5.5.0):
+  stylus@0.62.0:
     dependencies:
       '@adobe/css-tools': 4.3.1
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3
       glob: 7.2.0
       sax: 1.3.0
       source-map: 0.7.6
