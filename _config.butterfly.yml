@@ -50,7 +50,7 @@ social:
 # --------------------------------------
 
 # 網站的 favicon 圖標
-favicon: /images/avatar.jpg
+favicon: /images/favicon192.png
 
 # 頭像設置
 avatar:
@@ -1157,11 +1157,11 @@ pwa:
   # PWA manifest 文件路徑
   manifest:
   # Apple Touch 圖標路徑
-  apple_touch_icon:
+  apple_touch_icon: /images/favicon192.png
   # 32x32 像素的 favicon 圖標路徑
-  favicon_32_32:
+  favicon_32_32: /images/favicon192.png
   # 16x16 像素的 favicon 圖標路徑
-  favicon_16_16:
+  favicon_16_16: /images/favicon192.png
   # mask 圖標路徑
   mask_icon:
 
