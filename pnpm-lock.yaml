@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@renbaoshuo/markdown-it-katex':
         specifier: ^2.0.2
-        version: 2.0.2(katex@0.19.1)(markdown-it@13.0.2)
+        version: 2.0.2(katex@0.19.1)(markdown-it@13.0.1)
       hexo:
         specifier: ^8.1.2
-        version: 8.1.2(chokidar@3.6.0)
+        version: 8.1.2(chokidar@3.5.3)
       hexo-algoliasearch:
         specifier: ^2.0.1
         version: 2.0.1
       hexo-blog-encrypt:
         specifier: ^4.1.0
-        version: 4.1.0(hexo@8.1.2(chokidar@3.6.0))
+        version: 4.1.0(hexo@8.1.2(chokidar@3.5.3))
       hexo-generator-archive:
         specifier: ^2.0.0
         version: 2.0.0
@@ -57,8 +57,8 @@ importers:
         specifier: ^0.19.1
         version: 0.19.1
       moment-timezone:
-        specifier: ^0.6.5
-        version: 0.6.5
+        specifier: ^0.6.6
+        version: 0.6.6
 
 packages:
 
@@ -225,10 +225,6 @@ packages:
 
   chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
-    engines: {node: '>= 8.10.0'}
-
-  chokidar@3.6.0:
-    resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
 
   chokidar@4.0.3:
@@ -702,10 +698,6 @@ packages:
     resolution: {integrity: sha512-lTlxriVoy2criHP0JKRhO2VDG9c2ypWCsT237eDiLqi09rmbKoUetyGHq2uOIRoRS//kfoJckS0eUzzkDR+k2Q==}
     hasBin: true
 
-  markdown-it@13.0.2:
-    resolution: {integrity: sha512-FtwnEuuK+2yVU7goGn/MJ0WBZMM9ZPgU9spqlFs7/A/pDIUNSOQZhUgOqYCficIuR2QaFnrt8LHqBWsbTAoI5w==}
-    hasBin: true
-
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -755,8 +747,8 @@ packages:
   moment-timezone@0.5.46:
     resolution: {integrity: sha512-ZXm9b36esbe7OmdABqIWJuBBiLLwAjrN7CE+7sYdCCx82Nabt1wHDj8TVseS59QIlfFPbOoiBPm6ca9BioG4hw==}
 
-  moment-timezone@0.6.5:
-    resolution: {integrity: sha512-KKzZAxGv2Qx4cnk6eSlvf4C+DLFW52vmMY5MN7UARY7GONbozkutylQG3DrrtmLCTXdQ5XZrqao9cI16bLFzXA==}
+  moment-timezone@0.6.6:
+    resolution: {integrity: sha512-LF5AAYsMduXFW2ungr/D9JqNq9ykZyhWgYG6wFtdGZW5ZlBDTBgTUFqW8EC7Fa+Dvs3IMZxlWkSR09sW2D/+0w==}
 
   moment@2.31.0:
     resolution: {integrity: sha512-0acOTfMiWOheYS4eoWb80yYMb/JLvVv9SHbs2PehaDzfUG0Bw855SKyk0IKTnPGa5+U2bmi3W68l1+sGLX/pvw==}
@@ -1017,9 +1009,6 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  uc.micro@1.0.5:
-    resolution: {integrity: sha512-JoLI4g5zv5qNyT09f4YAvEZIIV1oOjqnewYg5D38dkQljIzpPT296dbIGvKro3digYI1bkb7W6EP1y4uDlmzLg==}
-
   uc.micro@1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
 
@@ -1137,10 +1126,10 @@ snapshots:
       '@babel/helper-string-parser': 7.29.11
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@renbaoshuo/markdown-it-katex@2.0.2(katex@0.19.1)(markdown-it@13.0.2)':
+  '@renbaoshuo/markdown-it-katex@2.0.2(katex@0.19.1)(markdown-it@13.0.1)':
     dependencies:
       katex: 0.19.1
-      markdown-it: 13.0.2
+      markdown-it: 13.0.1
 
   a-sync-waterfall@1.0.1: {}
 
@@ -1251,19 +1240,6 @@ snapshots:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
-
-  chokidar@3.6.0:
-    dependencies:
-      anymatch: 3.1.3
-      braces: 3.0.3
-      glob-parent: 5.1.2
-      is-binary-path: 2.1.0
-      is-glob: 4.0.3
-      normalize-path: 3.0.0
-      readdirp: 3.6.0
-    optionalDependencies:
-      fsevents: 2.3.3
-    optional: true
 
   chokidar@4.0.3:
     dependencies:
@@ -1499,9 +1475,9 @@ snapshots:
       algoliasearch: 4.20.0
       striptags: 3.2.0
 
-  hexo-blog-encrypt@4.1.0(hexo@8.1.2(chokidar@3.6.0)):
+  hexo-blog-encrypt@4.1.0(hexo@8.1.2(chokidar@3.5.3)):
     dependencies:
-      hexo: 8.1.2(chokidar@3.6.0)
+      hexo: 8.1.2(chokidar@3.5.3)
 
   hexo-cli@4.3.2:
     dependencies:
@@ -1609,7 +1585,7 @@ snapshots:
       hexo-renderer-pug: 3.0.0
       hexo-renderer-stylus: 3.0.1(supports-color@5.3.0)
       hexo-util: 4.0.0
-      moment-timezone: 0.6.5
+      moment-timezone: 0.6.6
     transitivePeerDependencies:
       - supports-color
 
@@ -1633,7 +1609,7 @@ snapshots:
       prismjs: 1.29.0
       strip-indent: 3.0.0
 
-  hexo@8.1.2(chokidar@3.6.0):
+  hexo@8.1.2(chokidar@3.5.3):
     dependencies:
       abbrev: 3.0.0
       bluebird: 3.7.2
@@ -1651,7 +1627,7 @@ snapshots:
       moize: 6.1.7
       moment: 2.31.0
       moment-timezone: 0.5.46
-      nunjucks: 3.2.4(chokidar@3.6.0)
+      nunjucks: 3.2.4(chokidar@3.5.3)
       picocolors: 1.1.1
       pretty-hrtime: 1.0.3
       strip-ansi: 7.2.0
@@ -1801,14 +1777,6 @@ snapshots:
       entities: 3.0.1
       linkify-it: 4.0.1
       mdurl: 1.0.1
-      uc.micro: 1.0.5
-
-  markdown-it@13.0.2:
-    dependencies:
-      argparse: 2.0.1
-      entities: 3.0.1
-      linkify-it: 4.0.1
-      mdurl: 1.0.1
       uc.micro: 1.0.6
 
   math-intrinsics@1.1.0: {}
@@ -1849,7 +1817,7 @@ snapshots:
     dependencies:
       moment: 2.31.0
 
-  moment-timezone@0.6.5:
+  moment-timezone@0.6.6:
     dependencies:
       moment: 2.31.0
 
@@ -1884,13 +1852,13 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
-  nunjucks@3.2.4(chokidar@3.6.0):
+  nunjucks@3.2.4(chokidar@3.5.3):
     dependencies:
       a-sync-waterfall: 1.0.1
       asap: 2.0.6
       commander: 5.1.0
     optionalDependencies:
-      chokidar: 3.6.0
+      chokidar: 3.5.3
 
   object-assign@4.1.1: {}
 
@@ -2128,8 +2096,6 @@ snapshots:
   token-stream@1.0.0: {}
 
   tslib@2.8.1: {}
-
-  uc.micro@1.0.5: {}
 
   uc.micro@1.0.6: {}
 
