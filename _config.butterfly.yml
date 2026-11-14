@@ -104,9 +104,11 @@ cover:
   # 主頁封面的位置
   # 選擇: left/right/both
   position: both
-  # 當未設置封面時，顯示默認封面
+  # 當未設置封面時，顯示默認封面（隨機取一張，避免連續重複）
   default_cover:
-    - /images/default.webp
+    - /images/covers/cover-01-dawn-ridge.webp
+    - /images/covers/cover-02-terminal-tide.webp
+    - /images/covers/cover-03-orbit-notes.webp
 
 # 替換損壞的圖片
 error_img:
