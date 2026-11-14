@@ -1,41 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Dawn Ridge cover">
   <defs>
     <linearGradient id="c1-bg" x1="0.1" y1="0" x2="0.7" y2="1">
-      <stop offset="0" stop-color="#07131c"/>
-      <stop offset="0.48" stop-color="#0b2230"/>
-      <stop offset="0.78" stop-color="#081620"/>
-      <stop offset="1" stop-color="#050a0e"/>
+      <stop offset="0" stop-color="#fdfbff"/>
+      <stop offset="0.48" stop-color="#f2eafd"/>
+      <stop offset="0.78" stop-color="#f7f1ff"/>
+      <stop offset="1" stop-color="#fbf8ff"/>
     </linearGradient>
     <radialGradient id="c1-glow" cx="0.7" cy="0.3" r="0.62">
-      <stop offset="0" stop-color="#49b1f5" stop-opacity="0.34"/>
-      <stop offset="0.42" stop-color="#49b1f5" stop-opacity="0.12"/>
-      <stop offset="1" stop-color="#49b1f5" stop-opacity="0"/>
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.3"/>
+      <stop offset="0.42" stop-color="#c4b5fd" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#c4b5fd" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="c1-sun" cx="0.38" cy="0.32" r="0.8">
-      <stop offset="0" stop-color="#ffd3ae"/>
-      <stop offset="0.45" stop-color="#ff9466"/>
-      <stop offset="1" stop-color="#ff6136"/>
+    <radialGradient id="c1-sun" cx="0.36" cy="0.3" r="0.82">
+      <stop offset="0" stop-color="#f4ecff"/>
+      <stop offset="0.42" stop-color="#c9b3ee"/>
+      <stop offset="1" stop-color="#8b6fd6"/>
     </radialGradient>
     <linearGradient id="c1-far" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#175066"/>
-      <stop offset="1" stop-color="#0b2230"/>
+      <stop offset="0" stop-color="#dfd2f4"/>
+      <stop offset="1" stop-color="#cfc0ea"/>
     </linearGradient>
     <linearGradient id="c1-mid" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0d3444"/>
-      <stop offset="1" stop-color="#081824"/>
+      <stop offset="0" stop-color="#c1a9e5"/>
+      <stop offset="1" stop-color="#a98dce"/>
     </linearGradient>
     <linearGradient id="c1-near" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#071219"/>
-      <stop offset="1" stop-color="#030608"/>
+      <stop offset="0" stop-color="#6b5796"/>
+      <stop offset="1" stop-color="#3f3260"/>
     </linearGradient>
     <linearGradient id="c1-beam" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#bfe8ff" stop-opacity="0.13"/>
-      <stop offset="1" stop-color="#bfe8ff" stop-opacity="0"/>
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#c4b5fd" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="c1-mist" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#8fd8ff" stop-opacity="0"/>
-      <stop offset="0.45" stop-color="#8fd8ff" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="#8fd8ff" stop-opacity="0"/>
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
     <filter id="c1-blur40" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="40"/>
@@ -47,7 +47,7 @@
       <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" stitchTiles="stitch"/>
       <feColorMatrix type="saturate" values="0"/>
       <feComponentTransfer>
-        <feFuncA type="linear" slope="0.075"/>
+        <feFuncA type="linear" slope="0.05"/>
       </feComponentTransfer>
     </filter>
   </defs>
@@ -56,46 +56,46 @@
   <rect width="1200" height="900" fill="url(#c1-glow)"/>
 
   <!-- 细网格 -->
-  <g stroke="#a9ddff" stroke-opacity="0.05" stroke-width="1">
+  <g stroke="#6b5796" stroke-opacity="0.07" stroke-width="1">
     <path d="M60 0V900M120 0V900M180 0V900M240 0V900M300 0V900M360 0V900M420 0V900M480 0V900M540 0V900M600 0V900M660 0V900M720 0V900M780 0V900M840 0V900M900 0V900M960 0V900M1020 0V900M1080 0V900M1140 0V900"/>
     <path d="M0 60H1200M0 120H1200M0 180H1200M0 240H1200M0 300H1200M0 360H1200M0 420H1200M0 480H1200M0 540H1200M0 600H1200M0 660H1200M0 720H1200M0 780H1200M0 840H1200"/>
   </g>
 
   <!-- 星点 -->
-  <g fill="#d8f2ff">
-    <circle cx="120" cy="128" r="1.6" opacity="0.55"/>
-    <circle cx="205" cy="222" r="1.1" opacity="0.35"/>
-    <circle cx="286" cy="96" r="1.4" opacity="0.5"/>
-    <circle cx="352" cy="188" r="1" opacity="0.3"/>
-    <circle cx="430" cy="120" r="1.8" opacity="0.6"/>
-    <circle cx="498" cy="258" r="1.2" opacity="0.4"/>
-    <circle cx="566" cy="150" r="1" opacity="0.32"/>
-    <circle cx="642" cy="214" r="1.5" opacity="0.5"/>
-    <circle cx="712" cy="104" r="1.1" opacity="0.36"/>
-    <circle cx="806" cy="168" r="1.4" opacity="0.46"/>
-    <circle cx="884" cy="86" r="1.7" opacity="0.55"/>
-    <circle cx="962" cy="196" r="1" opacity="0.3"/>
-    <circle cx="1042" cy="124" r="1.3" opacity="0.44"/>
-    <circle cx="1114" cy="238" r="1.6" opacity="0.5"/>
-    <circle cx="168" cy="318" r="1" opacity="0.3"/>
-    <circle cx="318" cy="352" r="1.2" opacity="0.34"/>
-    <circle cx="472" cy="316" r="1.5" opacity="0.4"/>
-    <circle cx="596" cy="384" r="1" opacity="0.28"/>
-    <circle cx="738" cy="332" r="1.2" opacity="0.34"/>
-    <circle cx="906" cy="392" r="1.4" opacity="0.36"/>
-    <circle cx="1056" cy="342" r="1" opacity="0.28"/>
+  <g fill="#5d4a85">
+    <circle cx="120" cy="128" r="1.6" opacity="0.35"/>
+    <circle cx="205" cy="222" r="1.1" opacity="0.22"/>
+    <circle cx="286" cy="96" r="1.4" opacity="0.3"/>
+    <circle cx="352" cy="188" r="1" opacity="0.2"/>
+    <circle cx="430" cy="120" r="1.8" opacity="0.34"/>
+    <circle cx="498" cy="258" r="1.2" opacity="0.24"/>
+    <circle cx="566" cy="150" r="1" opacity="0.2"/>
+    <circle cx="642" cy="214" r="1.5" opacity="0.3"/>
+    <circle cx="712" cy="104" r="1.1" opacity="0.22"/>
+    <circle cx="806" cy="168" r="1.4" opacity="0.28"/>
+    <circle cx="884" cy="86" r="1.7" opacity="0.34"/>
+    <circle cx="962" cy="196" r="1" opacity="0.2"/>
+    <circle cx="1042" cy="124" r="1.3" opacity="0.26"/>
+    <circle cx="1114" cy="238" r="1.6" opacity="0.3"/>
+    <circle cx="168" cy="318" r="1" opacity="0.2"/>
+    <circle cx="318" cy="352" r="1.2" opacity="0.22"/>
+    <circle cx="472" cy="316" r="1.5" opacity="0.26"/>
+    <circle cx="596" cy="384" r="1" opacity="0.18"/>
+    <circle cx="738" cy="332" r="1.2" opacity="0.22"/>
+    <circle cx="906" cy="392" r="1.4" opacity="0.24"/>
+    <circle cx="1056" cy="342" r="1" opacity="0.18"/>
   </g>
 
   <!-- 斜向光柱 -->
-  <path d="M1200 0H1006L414 900H636Z" fill="url(#c1-beam)"/>
+  <path d="M1200 0H1006L414 900H636Z" fill="url(#c1-beam)" opacity="0.7"/>
 
-  <!-- 珊瑚色落日 -->
+  <!-- 淡紫落日 -->
   <g>
-    <circle cx="836" cy="296" r="150" fill="#ff7242" opacity="0.16" filter="url(#c1-blur40)"/>
+    <circle cx="836" cy="296" r="150" fill="#a78bfa" opacity="0.22" filter="url(#c1-blur40)"/>
     <circle cx="836" cy="296" r="80" fill="url(#c1-sun)"/>
-    <circle cx="836" cy="296" r="118" fill="none" stroke="#ffb190" stroke-opacity="0.38" stroke-width="1.4"/>
-    <circle cx="836" cy="296" r="168" fill="none" stroke="#ffb190" stroke-opacity="0.2" stroke-width="1" stroke-dasharray="2 12"/>
-    <circle cx="836" cy="296" r="214" fill="none" stroke="#9fdcff" stroke-opacity="0.12" stroke-width="1"/>
+    <circle cx="836" cy="296" r="118" fill="none" stroke="#8b6fd6" stroke-opacity="0.32" stroke-width="1.4"/>
+    <circle cx="836" cy="296" r="168" fill="none" stroke="#8b6fd6" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 12"/>
+    <circle cx="836" cy="296" r="214" fill="none" stroke="#8b6fd6" stroke-opacity="0.1" stroke-width="1"/>
   </g>
 
   <!-- 远山 -->
@@ -107,8 +107,8 @@
   <path d="M0 614C210 596 372 640 596 624S1010 594 1200 620V650C980 628 830 660 606 654S196 632 0 650Z" fill="url(#c1-mist)" filter="url(#c1-blur14)"/>
 
   <!-- 画框与角标 -->
-  <rect x="28" y="28" width="1144" height="844" fill="none" stroke="#d7eeff" stroke-opacity="0.14"/>
-  <g stroke="#ffa477" stroke-opacity="0.75" stroke-width="1.4" fill="none">
+  <rect x="28" y="28" width="1144" height="844" fill="none" stroke="#6b5796" stroke-opacity="0.18"/>
+  <g stroke="#8b6fd6" stroke-opacity="0.8" stroke-width="1.4" fill="none">
     <path d="M28 58V28h30"/>
     <path d="M1172 28v30h-30"/>
     <path d="M28 842v30h30"/>
@@ -117,10 +117,10 @@
 
   <!-- 标记 -->
   <g font-family="ui-monospace, Menlo, Consolas, monospace">
-    <text x="64" y="86" fill="#bfe3f7" fill-opacity="0.5" font-size="15" letter-spacing="6">N° 01</text>
-    <rect x="64" y="814" width="20" height="3" fill="#ff7242"/>
-    <text x="98" y="822" fill="#cfeaff" fill-opacity="0.48" font-size="15" letter-spacing="6">LYTREE</text>
+    <text x="64" y="86" fill="#5d4a85" fill-opacity="0.55" font-size="15" letter-spacing="6">N° 01</text>
+    <rect x="64" y="814" width="20" height="3" fill="#8b6fd6"/>
+    <text x="98" y="822" fill="#5d4a85" fill-opacity="0.55" font-size="15" letter-spacing="6">LYTREE</text>
   </g>
 
-  <rect width="1200" height="900" filter="url(#c1-grain)" opacity="0.9"/>
+  <rect width="1200" height="900" filter="url(#c1-grain)" style="mix-blend-mode:multiply" opacity="0.9"/>
 </svg>
