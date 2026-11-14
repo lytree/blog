@@ -2,7 +2,7 @@
 
 杨 ◦ 柳 · 日常随笔站点 —— 基于 **Hexo 8 + Butterfly 5**，记录平淡生活里的微光。
 
-源码：[github.com/lytree/blog](https://github.com/lytree/blog) · 站点：[blog.prideyang.top](https://blog.prideyang.top/)
+源码：[github.com/lytree/blog](https://github.com/lytree/blog) · 站点：[blog.lytree.top](https://blog.lytree.top/)
 
 ## 写作约定
 
